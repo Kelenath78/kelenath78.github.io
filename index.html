@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>CYBERCITY OVERDRIVE · Roguelike de cartes néon-cyberpunk</title>
+<meta name="description" content="CYBERCITY OVERDRIVE : un roguelike de cartes néon-cyberpunk gratuit. Choisis ta classe, pirate le réseau, affronte les boss de la mégapole. Jouable dans le navigateur, hors ligne et sur Android.">
+<meta name="theme-color" content="#05060f">
+<link rel="canonical" href="https://cybercity-overdrive.fr/">
+<link rel="icon" href="img/icone.png">
+<link rel="apple-touch-icon" href="jouer/icons/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="CYBERCITY OVERDRIVE">
+<meta property="og:description" content="Roguelike de cartes néon-cyberpunk gratuit. Pirate le réseau. Survis jusqu'à la dernière danse.">
+<meta property="og:image" content="https://cybercity-overdrive.fr/img/partage.png">
+<meta property="og:url" content="https://cybercity-overdrive.fr/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05060f;--panel:#0a0e20;--line:#1b2748;--txt:#e8ecff;--dim:#a9b3d6;--cyan:#00f0ff;--mag:#ff2bd6;--yel:#ffe600;--red:#ff3b5c;--grn:#39ff9c;--org:#ff8a1f;--vio:#b06bff}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.6 'Share Tech Mono',ui-monospace,monospace;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--cyan)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+h1,h2,h3,.orb{font-family:Orbitron,sans-serif;letter-spacing:1px;margin:0}
+h2{font-size:clamp(24px,4vw,34px);font-weight:900;color:var(--txt)}
+h2 small{display:block;font:14px 'Share Tech Mono',monospace;letter-spacing:3px;color:var(--mag);margin-bottom:6px;text-transform:uppercase}
+section{padding:72px 0}
+.lead{color:var(--dim);max-width:640px;margin:12px 0 0}
+
+/* barre */
+.nav{position:sticky;top:0;z-index:20;background:rgba(5,6,15,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:18px;height:60px}
+.brand{font-family:Orbitron;font-weight:900;font-size:15px;color:var(--cyan);text-decoration:none;white-space:nowrap}
+.brand span{color:var(--mag)}
+.nav nav{display:flex;gap:18px;margin-left:auto}
+.nav nav a{color:var(--dim);text-decoration:none;font-size:14px}
+.nav nav a:hover{color:var(--txt)}
+.nav .play-s{font-family:Orbitron;font-weight:700;font-size:13px;letter-spacing:2px;color:#001014;background:var(--cyan);border-radius:8px;padding:9px 14px;text-decoration:none;box-shadow:0 0 14px rgba(0,240,255,.45);white-space:nowrap}
+@media(max-width:760px){.nav nav{display:none}.nav .play-s{margin-left:auto}}
+
+/* héros */
+.hero{position:relative;min-height:min(92vh,860px);display:flex;align-items:center;overflow:hidden;padding:60px 0 120px;background:linear-gradient(180deg,#05020f 0%,#1a0636 32%,#4a0e5e 60%,#b0247a 76%,#2a0830 86%,#05060f 100%)}
+.sun{position:absolute;left:50%;bottom:16%;width:900px;height:900px;margin-left:-450px;border-radius:50%;background:radial-gradient(circle,rgba(255,90,200,.6) 0%,rgba(255,43,214,.2) 30%,transparent 62%);pointer-events:none}
+.city{position:absolute;left:0;right:0;bottom:120px;height:62%;pointer-events:none}
+.city svg{width:100%;height:100%}
+.floor{position:absolute;left:-30%;right:-30%;bottom:-40px;height:240px;background:repeating-linear-gradient(90deg,rgba(0,240,255,.5) 0 2px,transparent 2px 64px),repeating-linear-gradient(0deg,rgba(255,43,214,.45) 0 2px,transparent 2px 36px);transform:perspective(260px) rotateX(64deg);transform-origin:top;opacity:.55;pointer-events:none}
+.beam{position:absolute;bottom:120px;width:90px;height:110%;transform-origin:50% 100%;filter:blur(8px);pointer-events:none}
+.beam.a{left:12%;background:linear-gradient(0deg,rgba(0,240,255,.4),transparent 90%);animation:bA 9s ease-in-out infinite}
+.beam.b{right:12%;background:linear-gradient(0deg,rgba(255,43,214,.45),transparent 90%);animation:bB 11s ease-in-out infinite}
+@keyframes bA{0%,100%{transform:rotate(-14deg)}50%{transform:rotate(6deg)}}
+@keyframes bB{0%,100%{transform:rotate(12deg)}50%{transform:rotate(-8deg)}}
+.hero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center;width:100%}
+.logo1{font-family:Orbitron;font-weight:900;font-size:clamp(46px,8.5vw,96px);line-height:1;color:var(--cyan);text-shadow:0 0 12px var(--cyan),0 0 36px rgba(0,240,255,.65),0 0 80px rgba(0,240,255,.35),4px 0 var(--mag)}
+.logo2{font-family:Orbitron;font-weight:700;font-size:clamp(20px,3.6vw,38px);letter-spacing:clamp(8px,1.8vw,18px);color:var(--mag);text-shadow:0 0 12px var(--mag),0 0 30px rgba(255,43,214,.6);margin-top:10px}
+.tag{font-size:clamp(15px,2vw,19px);color:#d9def7;margin:22px 0 0;text-shadow:0 0 10px rgba(0,0,0,.9)}
+.ctas{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:0 26px;border-radius:14px;font-family:Orbitron;font-weight:900;font-size:16px;letter-spacing:3px;text-decoration:none;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn.play{color:#001014;background:var(--yel);box-shadow:0 0 22px rgba(255,230,0,.55)}
+.btn.play:hover{box-shadow:0 0 34px rgba(255,230,0,.8)}
+.btn.ghost{color:var(--cyan);border:1.5px solid var(--cyan);background:rgba(5,6,15,.55);font-size:13px;letter-spacing:2px}
+.meta{margin-top:18px;font-size:13px;color:var(--dim)}
+.meta b{color:var(--grn);font-weight:400}
+.heroart{position:relative;height:min(64vh,560px)}
+.heroart img{position:absolute;bottom:0;filter:drop-shadow(0 12px 18px rgba(0,0,0,.7))}
+.heroart .h1{width:74%;left:16%;z-index:3;animation:fl 5s ease-in-out infinite}
+.heroart .h2{width:54%;left:-8%;bottom:6%;z-index:2;opacity:.92;animation:fl 6s ease-in-out -2s infinite}
+.heroart .h3{width:54%;right:-10%;bottom:8%;z-index:1;opacity:.85;animation:fl 5.5s ease-in-out -3s infinite}
+@keyframes fl{50%{transform:translateY(-8px)}}
+@media(max-width:860px){.hero .wrap{grid-template-columns:1fr;text-align:center}.ctas{justify-content:center}.heroart{height:340px;max-width:440px;margin:10px auto 0;width:100%}}
+
+/* cartes de fonctionnalités */
+.feats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:34px}
+.feat{background:linear-gradient(180deg,rgba(10,14,32,.95),rgba(10,14,32,.6));border:1px solid var(--line);border-radius:16px;padding:22px 20px;position:relative;overflow:hidden}
+.feat::before{content:"";position:absolute;inset:0 0 auto 0;height:2px;background:var(--c)}
+.feat .ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 14%,transparent);color:var(--c);margin-bottom:14px}
+.feat h3{font-size:15px;font-weight:700;color:var(--txt)}
+.feat p{margin:8px 0 0;color:var(--dim);font-size:14px}
+@media(max-width:900px){.feats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.feats{grid-template-columns:1fr}}
+
+/* classes */
+.classes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:34px}
+.cls{position:relative;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:radial-gradient(circle at 50% 35%,color-mix(in srgb,var(--c) 22%,transparent),transparent 65%),var(--panel);padding:16px 16px 20px;transition:border-color .2s,transform .2s}
+.cls:hover{border-color:var(--c);transform:translateY(-4px)}
+.cls img{aspect-ratio:1;width:100%;object-fit:contain;filter:drop-shadow(0 8px 10px rgba(0,0,0,.6))}
+.cls h3{font-size:17px;font-weight:900;color:var(--c);margin-top:6px}
+.cls .role{font-size:13px;color:var(--dim)}
+.cls p{font-size:14px;margin:10px 0 0;color:#cfd5f2}
+.cls .badge{position:absolute;top:12px;right:12px;font-size:11px;border:1px solid var(--c);color:var(--c);border-radius:20px;padding:2px 9px;background:rgba(5,6,15,.7)}
+@media(max-width:900px){.classes{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* bestiaire */
+.acts{display:grid;gap:26px;margin-top:34px}
+.act h3{font-size:14px;letter-spacing:3px;color:var(--c);margin-bottom:12px}
+.act h3 span{color:var(--dim);font-family:'Share Tech Mono';letter-spacing:1px;margin-left:8px}
+.mobs{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px}
+.mob{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:10px 8px 12px;text-align:center}
+.mob img{aspect-ratio:1;width:100%;object-fit:contain}
+.mob b{display:block;font-size:13px;font-weight:400;color:var(--txt);margin-top:4px}
+
+/* boss */
+.bosses{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:34px}
+.boss{position:relative;border-radius:18px;overflow:hidden;border:1px solid color-mix(in srgb,var(--c) 45%,var(--line));background:radial-gradient(circle at 50% 40%,color-mix(in srgb,var(--c) 26%,transparent),transparent 62%),linear-gradient(180deg,#0b0f24,#05060f);padding:18px 18px 20px}
+.boss img{aspect-ratio:1;width:86%;margin:0 auto;object-fit:contain;filter:drop-shadow(0 10px 14px rgba(0,0,0,.7))}
+.boss h3{font-size:18px;font-weight:900;color:var(--c);text-shadow:0 0 14px color-mix(in srgb,var(--c) 60%,transparent)}
+.boss .where{font-size:12px;letter-spacing:2px;color:var(--dim);text-transform:uppercase}
+.boss p{font-size:14px;color:#cfd5f2;margin:8px 0 0}
+@media(max-width:900px){.bosses{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.bosses{grid-template-columns:1fr}}
+
+/* installer */
+.install{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:34px}
+.inst{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px}
+.inst h3{font-size:15px;color:var(--c)}
+.inst ol{margin:12px 0 0;padding-left:20px;color:#cfd5f2;font-size:14px}
+.inst li{margin:4px 0}
+.inst .btn{margin-top:16px;min-height:46px;font-size:13px;width:100%}
+.soon{display:inline-block;margin-top:14px;font-size:12px;color:var(--yel);border:1px dashed var(--yel);border-radius:8px;padding:6px 10px}
+@media(max-width:900px){.install{grid-template-columns:1fr}}
+
+/* appel final */
+.final{text-align:center;padding:90px 0;background:radial-gradient(ellipse at 50% 100%,rgba(255,43,214,.22),transparent 60%),radial-gradient(ellipse at 50% 0%,rgba(0,240,255,.12),transparent 60%)}
+.final p{color:var(--dim);margin:12px auto 0;max-width:520px}
+.final .btn{margin-top:28px}
+footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--dim);font-size:13px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
+footer a{color:var(--dim)}
+.rv{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top">CYBERCITY <span>OVERDRIVE</span></a>
+    <nav aria-label="Sections">
+      <a href="#jeu">Le jeu</a><a href="#classes">Classes</a><a href="#bestiaire">Bestiaire</a><a href="#boss">Boss</a><a href="#installer">Installer</a>
+    </nav>
+    <a class="play-s" href="jouer/">JOUER</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" aria-label="Présentation">
+    <div class="sun" aria-hidden="true"></div>
+    <div class="beam a" aria-hidden="true"></div><div class="beam b" aria-hidden="true"></div>
+    <div class="city" aria-hidden="true">
+      <svg viewBox="0 0 1200 600" preserveAspectRatio="xMidYMax slice">
+        <path d="M0 600V380h60v-50h40v50h30V420h50v180ZM980 600V400h40v-90h60v90h50v-50h70v250ZM430 600V450h70v-40h90v40h60v150Z" fill="#2a0c3e" opacity=".9"/>
+        <path d="M30 600V180h50V110h20V60h10v50h20v70h60v420Z" fill="#12061f"/>
+        <path d="M230 600V300h90v-50h50v50h40v300Z" fill="#150722"/>
+        <path d="M470 600V90l40-70h80l40 70v510Z" fill="#0e0419"/>
+        <path d="M550 20V-40" stroke="#0e0419" stroke-width="10"/>
+        <path d="M700 600V250h70v-40h80v40h50v350Z" fill="#140620"/>
+        <path d="M930 600V140h40V80h90v60h60v-30h50v490Z" fill="#10051c"/>
+        <g fill="#00f0ff" opacity=".85"><rect x="490" y="140" width="14" height="6"/><rect x="530" y="170" width="14" height="6"/><rect x="570" y="140" width="14" height="6"/><rect x="490" y="230" width="14" height="6"/><rect x="570" y="270" width="14" height="6"/><rect x="530" y="330" width="14" height="6"/><rect x="60" y="250" width="12" height="6"/><rect x="110" y="300" width="12" height="6"/><rect x="60" y="380" width="12" height="6"/></g>
+        <g fill="#ffe600" opacity=".8"><rect x="250" y="360" width="12" height="6"/><rect x="330" y="400" width="12" height="6"/><rect x="720" y="300" width="12" height="6"/><rect x="800" y="350" width="12" height="6"/><rect x="960" y="200" width="12" height="6"/><rect x="1040" y="250" width="12" height="6"/><rect x="1000" y="330" width="12" height="6"/></g>
+        <rect x="490" y="200" width="100" height="160" rx="6" fill="none" stroke="#ff2bd6" stroke-width="4" opacity=".9"/>
+        <circle cx="550" cy="16" r="7" fill="#ff3b5c"/><circle cx="105" cy="56" r="6" fill="#ff3b5c"/><circle cx="1015" cy="76" r="6" fill="#ff3b5c"/>
+      </svg>
+    </div>
+    <div class="floor" aria-hidden="true"></div>
+    <div class="wrap">
+      <div>
+        <h1><span class="logo1">CYBERCITY</span><span class="logo2" style="display:block">OVERDRIVE</span></h1>
+        <p class="tag">Pirate le réseau. Survis jusqu'à la dernière danse.</p>
+        <p class="lead" style="margin-left:auto;margin-right:auto;margin-left:0">Un roguelike de cartes néon-cyberpunk : construis ton deck, traverse la mégapole et abats les IA qui la contrôlent. Gratuit, dans ton navigateur ou sur ton téléphone.</p>
+        <div class="ctas">
+          <a class="btn play" href="jouer/">▶ JOUER</a>
+          <a class="btn ghost" href="#installer">INSTALLER L'APP</a>
+        </div>
+        <p class="meta">Version <b>0.70.1</b> · Jouable hors ligne · Sans pub</p>
+      </div>
+      <div class="heroart" aria-hidden="true">
+        <img class="h2" src="img/class-merc.webp" alt="" width="520" height="520">
+        <img class="h3" src="img/class-techno.webp" alt="" width="520" height="520">
+        <img class="h1" src="img/class-net.webp" alt="" width="520" height="520" fetchpriority="high">
+      </div>
+    </div>
+  </section>
+
+  <section id="jeu">
+    <div class="wrap">
+      <h2 class="rv"><small>Le jeu</small>Chaque run est différent</h2>
+      <p class="lead rv">Trois actes, des chemins à choisir, des combats au tour par tour et une progression qui te rend plus fort à chaque tentative.</p>
+      <div class="feats">
+        <article class="feat rv" style="--c:var(--cyan)"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="11" height="15" rx="2"/><path d="M8 3h11a2 2 0 0 1 2 2v13"/></svg></div><h3>Deckbuilding</h3><p>Attaques, piratages, implants et cartes légendaires : façonne ton deck combat après combat.</p></article>
+        <article class="feat rv" style="--c:var(--mag)"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="5" cy="18" r="2"/><circle cx="12" cy="6" r="2"/><circle cx="19" cy="16" r="2"/><path d="M6.5 16.5 11 8M13.5 7.5l4.5 7"/></svg></div><h3>La mégapole</h3><p>Bas-fonds, usines, tour : une carte à explorer, des événements « ? », des marchands et des agents rivaux.</p></article>
+        <article class="feat rv" style="--c:var(--grn)"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 20V6M6 12l6-6 6 6"/></svg></div><h3>Évolution</h3><p>XP et fragments ◆ gagnés à chaque combat : améliore tes stats, tes talents et tes armes entre deux runs.</p></article>
+        <article class="feat rv" style="--c:var(--yel)"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg></div><h3>Partout</h3><p>Sur ordinateur et smartphone, installable comme une app, jouable hors ligne. Ta progression est sauvegardée.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="classes" style="background:linear-gradient(180deg,transparent,rgba(26,6,54,.35),transparent)">
+    <div class="wrap">
+      <h2 class="rv"><small>Les agents</small>Choisis ta classe</h2>
+      <p class="lead rv">Quatre styles de jeu, chacun avec son deck, son talent, ses armes et ses skins.</p>
+      <div class="classes">
+        <article class="cls rv" style="--c:var(--cyan)"><img src="img/class-net.webp" alt="Le Netrunner, hacker à capuche et visière cyan" width="520" height="520" loading="lazy"><h3>NETRUNNER</h3><div class="role">Spécialiste du piratage</div><p>Infecte l'ennemi de virus et laisse le code faire le travail.</p></article>
+        <article class="cls rv" style="--c:var(--red)"><img src="img/class-merc.webp" alt="Le Mercenaire en armure lourde avec un canon" width="520" height="520" loading="lazy"><h3>MERCENAIRE</h3><div class="role">Bruiser blindé</div><p>Encaisse, bloque et réplique avec une puissance de feu brute.</p></article>
+        <article class="cls rv" style="--c:var(--yel)"><img src="img/class-techno.webp" alt="Le Technomancien entouré de deux drones jaunes" width="520" height="520" loading="lazy"><h3>TECHNOMANCIEN</h3><div class="role">Maître des drones</div><p>Déploie des drones qui frappent seuls à chaque fin de tour.</p></article>
+        <article class="cls rv" style="--c:var(--mag)"><span class="badge">À débloquer</span><img src="img/class-hunter.webp" alt="La CyberHunter à l'arc, accompagnée du lynx cybernétique Lynx-7" width="520" height="520" loading="lazy"><h3>CYBERHUNTER</h3><div class="role">Traqueuse et dompteuse</div><p>Chasse avec son compagnon Lynx-7 et marque ses proies.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="bestiaire">
+    <div class="wrap">
+      <h2 class="rv"><small>Bestiaire</small>Ce qui t'attend</h2>
+      <p class="lead rv">Chaque acte a ses propres menaces. Apprends leurs intentions pour survivre.</p>
+      <div class="acts">
+        <div class="act rv" style="--c:var(--cyan)"><h3>ACTE 1 <span>Les bas-fonds</span></h3>
+          <div class="mobs">
+            <div class="mob"><img src="img/enemy-drone.webp" alt="" width="300" height="300" loading="lazy"><b>Drone de sécurité</b></div>
+            <div class="mob"><img src="img/enemy-chien.webp" alt="" width="300" height="300" loading="lazy"><b>Chien-robot</b></div>
+            <div class="mob"><img src="img/enemy-hacker.webp" alt="" width="300" height="300" loading="lazy"><b>Hacker rival</b></div>
+            <div class="mob"><img src="img/enemy-sentinelle.webp" alt="" width="300" height="300" loading="lazy"><b>Sentinelle</b></div>
+            <div class="mob"><img src="img/enemy-sniper.webp" alt="" width="300" height="300" loading="lazy"><b>Sniper optique</b></div>
+            <div class="mob"><img src="img/enemy-mecha.webp" alt="" width="300" height="300" loading="lazy"><b>Méca-Videur</b></div>
+            <div class="mob"><img src="img/enemy-tank.webp" alt="" width="300" height="300" loading="lazy"><b>Blindé lourd</b></div>
+          </div></div>
+        <div class="act rv" style="--c:var(--org)"><h3>ACTE 2 <span>Les usines</span></h3>
+          <div class="mobs">
+            <div class="mob"><img src="img/enemy-foreuse.webp" alt="" width="300" height="300" loading="lazy"><b>Foreuse minière</b></div>
+            <div class="mob"><img src="img/enemy-presse.webp" alt="" width="300" height="300" loading="lazy"><b>Presse hydraulique</b></div>
+            <div class="mob"><img src="img/enemy-araignee.webp" alt="" width="300" height="300" loading="lazy"><b>Araignée-forge</b></div>
+          </div></div>
+        <div class="act rv" style="--c:var(--vio)"><h3>ACTE 3 <span>La tour</span></h3>
+          <div class="mobs">
+            <div class="mob"><img src="img/enemy-exo.webp" alt="" width="300" height="300" loading="lazy"><b>Exo-Tueur T-9</b></div>
+            <div class="mob"><img src="img/enemy-colosse.webp" alt="" width="300" height="300" loading="lazy"><b>Colosse de siège</b></div>
+            <div class="mob"><img src="img/enemy-fou.webp" alt="" width="300" height="300" loading="lazy"><b>Cyber-psychopathe</b></div>
+          </div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="boss" style="background:linear-gradient(180deg,transparent,rgba(74,14,94,.28),transparent)">
+    <div class="wrap">
+      <h2 class="rv"><small>Boss</small>Les maîtres de la ville</h2>
+      <p class="lead rv">Au bout de chaque acte, une intelligence qui ne te laissera pas passer. Bats-les pour gagner des fragments ◆.</p>
+      <div class="bosses">
+        <article class="boss rv" style="--c:var(--cyan)"><img src="img/boss-gardien.webp" alt="GARDIEN-ZÉRO, colosse-bouclier à l'œil cyan" width="440" height="440" loading="lazy"><div class="where">Acte 1</div><h3>GARDIEN-ZÉRO</h3><p>Le programme de défense des bas-fonds, un mur vivant.</p></article>
+        <article class="boss rv" style="--c:var(--mag)"><img src="img/boss-archonte.webp" alt="ARCHONTE, IA contremaître aux bras industriels" width="440" height="440" loading="lazy"><div class="where">Acte 2</div><h3>ARCHONTE</h3><p>L'IA contremaître qui dirige les chaînes de montage.</p></article>
+        <article class="boss rv" style="--c:#b9a7ff"><img src="img/boss-spectre.webp" alt="SPECTRE-9, fantôme numérique encapuchonné" width="440" height="440" loading="lazy"><div class="where">Acte 2</div><h3>SPECTRE-9</h3><p>Un fantôme numérique qui vole tes cartes.</p></article>
+        <article class="boss rv" style="--c:var(--org)"><img src="img/boss-marteau.webp" alt="MARTEAU, robot à bras marteau-pilon" width="440" height="440" loading="lazy"><div class="where">Acte 2 · Jumeaux</div><h3>MARTEAU</h3><p>Frappe comme une presse industrielle.</p></article>
+        <article class="boss rv" style="--c:#b8c6d8"><img src="img/boss-enclume.webp" alt="ENCLUME, robot aux bras-boucliers" width="440" height="440" loading="lazy"><div class="where">Acte 2 · Jumeaux</div><h3>ENCLUME</h3><p>Protège son jumeau derrière ses plaques d'acier.</p></article>
+        <article class="boss rv" style="--c:var(--red)"><img src="img/boss-omega.webp" alt="NOYAU OMÉGA, cœur rouge incandescent du réseau" width="440" height="440" loading="lazy"><div class="where">Boss final</div><h3>NOYAU OMÉGA</h3><p>Le cœur du réseau. Le dernier rempart avant la liberté.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="installer">
+    <div class="wrap">
+      <h2 class="rv"><small>Installer</small>Joue où tu veux</h2>
+      <div class="install">
+        <div class="inst rv" style="--c:var(--yel)"><h3>Dans le navigateur</h3><ol><li>Clique sur « Jouer ».</li><li>C'est tout : rien à installer, ta progression est sauvegardée sur l'appareil.</li></ol><a class="btn play" href="jouer/">▶ JOUER</a></div>
+        <div class="inst rv" style="--c:var(--cyan)"><h3>Comme une app (Android, iPhone)</h3><ol><li>Ouvre le jeu sur ton téléphone.</li><li><b>Android (Chrome)</b> : menu ⋮ → « Installer l'application ».</li><li><b>iPhone (Safari)</b> : Partager → « Sur l'écran d'accueil ».</li><li>Le jeu se lance en plein écran, même hors ligne.</li></ol></div>
+        <div class="inst rv" style="--c:var(--grn)"><h3>APK Android</h3><ol><li>Télécharge le fichier .apk sur ton téléphone.</li><li>Ouvre-le et autorise l'installation depuis cette source.</li></ol><span class="soon">Bientôt disponible</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="final">
+    <div class="wrap">
+      <h2 class="rv">La ville ne dort jamais.</h2>
+      <p class="rv">Toi non plus, une fois que tu auras commencé.</p>
+      <a class="btn play rv" href="jouer/">▶ LANCER UN RUN</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 CYBERCITY OVERDRIVE · v0.70.1</span>
+    <span><a href="jouer/">Jouer</a> · <a href="#installer">Installer</a> · <a href="#top">Haut de page</a></span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var els=document.querySelectorAll('.rv');
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
+</body>
+</html>
