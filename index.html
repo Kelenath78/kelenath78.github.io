@@ -44,7 +44,7 @@ section{padding:72px 0}
 @media(max-width:760px){.nav nav{display:none}.nav .play-s{margin-left:auto}}
 
 /* héros */
-.hero{position:relative;min-height:min(92vh,860px);display:flex;align-items:center;overflow:hidden;padding:60px 0 120px;background:linear-gradient(180deg,#05020f 0%,#1a0636 32%,#4a0e5e 60%,#b0247a 76%,#2a0830 86%,#05060f 100%)}
+.hero{position:relative;min-height:calc(100vh - 60px);min-height:calc(100svh - 60px);display:flex;align-items:center;overflow:hidden;padding:60px 0 120px;background:linear-gradient(180deg,#05020f 0%,#1a0636 32%,#4a0e5e 60%,#b0247a 76%,#2a0830 86%,#05060f 100%)}
 .sun{position:absolute;left:50%;bottom:16%;width:900px;height:900px;margin-left:-450px;border-radius:50%;background:radial-gradient(circle,rgba(255,90,200,.6) 0%,rgba(255,43,214,.2) 30%,transparent 62%);pointer-events:none}
 .city{position:absolute;left:0;right:0;bottom:120px;height:62%;pointer-events:none}
 .city svg{width:100%;height:100%}
@@ -133,16 +133,33 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
 footer a{color:var(--dim)}
 .rv{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
 .rv.in{opacity:1;transform:none}
+/* une page par menu : l'accueil ne montre que le héros */
+main>section{display:none}
+body[data-view=home] main>.hero{display:flex}
+body:not([data-view=home]) main>.hero{display:none}
+body[data-view=jeu] #jeu,body[data-view=classes] #classes,body[data-view=bestiaire] #bestiaire,body[data-view=boss] #boss{display:block;min-height:calc(100vh - 60px - 90px);padding-top:48px}
+body[data-view=home] footer{display:none}
+/* installation de l'app : conservée dans le code mais masquée */
+#installer,.inst-link,main>.final{display:none!important}
+.nav nav a.on{color:var(--cyan)}
+.nav nav a.on::after{content:"";display:block;height:2px;background:var(--cyan);box-shadow:0 0 8px var(--cyan);margin-top:2px}
+@media(max-width:760px){
+  .nav .wrap{flex-wrap:wrap;height:auto;padding-top:10px;padding-bottom:0;row-gap:4px}
+  .nav nav{display:flex;order:3;width:100%;margin:0 -20px;padding:0 20px 8px;overflow-x:auto;gap:20px;scrollbar-width:none}
+  .nav nav::-webkit-scrollbar{display:none}
+  .nav nav a{white-space:nowrap;padding:6px 0}
+  .hero{min-height:calc(100svh - 96px)}
+}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
 </style>
 </head>
-<body>
+<body data-view="home">
 
 <header class="nav">
   <div class="wrap">
-    <a class="brand" href="#top">CYBERCITY <span>OVERDRIVE</span></a>
+    <a class="brand" href="#" aria-label="Accueil">CYBERCITY <span>OVERDRIVE</span></a>
     <nav aria-label="Sections">
-      <a href="#jeu">Le jeu</a><a href="#classes">Classes</a><a href="#bestiaire">Bestiaire</a><a href="#boss">Boss</a><a href="#installer">Installer</a>
+      <a href="#jeu">Le jeu</a><a href="#classes">Classes</a><a href="#bestiaire">Bestiaire</a><a href="#boss">Boss</a><a href="#installer" class="inst-link">Installer</a>
     </nav>
     <a class="play-s" href="jouer/">JOUER</a>
   </div>
@@ -175,7 +192,7 @@ footer a{color:var(--dim)}
         <p class="lead" style="margin-left:auto;margin-right:auto;margin-left:0">Un roguelike de cartes néon-cyberpunk : construis ton deck, traverse la mégapole et abats les IA qui la contrôlent. Gratuit, dans ton navigateur ou sur ton téléphone.</p>
         <div class="ctas">
           <a class="btn play" href="jouer/">▶ JOUER</a>
-          <a class="btn ghost" href="#installer">INSTALLER L'APP</a>
+          <a class="btn ghost inst-link" href="#installer">INSTALLER L'APP</a>
         </div>
         <p class="meta">Version <b>0.71</b> · Jouable hors ligne · Sans pub</p>
       </div>
@@ -259,7 +276,7 @@ footer a{color:var(--dim)}
     </div>
   </section>
 
-  <section id="installer">
+  <section id="installer" hidden aria-hidden="true">
     <div class="wrap">
       <h2 class="rv"><small>Installer</small>Joue où tu veux</h2>
       <div class="install">
@@ -282,11 +299,22 @@ footer a{color:var(--dim)}
 <footer>
   <div class="wrap">
     <span>© 2026 CYBERCITY OVERDRIVE · v0.71</span>
-    <span><a href="jouer/">Jouer</a> · <a href="#installer">Installer</a> · <a href="#top">Haut de page</a></span>
+    <span><a href="jouer/">Jouer</a><span class="inst-link"> · <a href="#installer">Installer</a></span> · <a href="#">Accueil</a></span>
   </div>
 </footer>
 
 <script>
+(function(){
+  var V=['jeu','classes','bestiaire','boss'];
+  function show(){
+    var v=location.hash.slice(1);if(V.indexOf(v)<0)v='home';
+    document.body.dataset.view=v;
+    document.querySelectorAll('.nav nav a').forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+v)});
+    window.scrollTo(0,0);
+    document.querySelectorAll('[data-view="'+v+'"] .rv, #'+v+' .rv').forEach(function(e){setTimeout(function(){e.classList.add('in')},30)});
+  }
+  window.addEventListener('hashchange',show);show();
+})();
 (function(){
   var els=document.querySelectorAll('.rv');
   if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return}
