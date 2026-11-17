@@ -139,8 +139,9 @@ body[data-view=home] main>.hero{display:flex}
 body:not([data-view=home]) main>.hero{display:none}
 body[data-view=jeu] #jeu,body[data-view=classes] #classes,body[data-view=bestiaire] #bestiaire,body[data-view=boss] #boss{display:block;min-height:calc(100vh - 60px - 90px);padding-top:48px}
 body[data-view=home] footer{display:none}
-/* installation de l'app : conservée dans le code mais masquée */
-#installer,.inst-link,main>.final{display:none!important}
+main>.final{display:none!important}
+body[data-view=installer] #installer{display:block;min-height:calc(100vh - 60px - 90px);padding-top:48px}
+.inst .btn.dl{background:var(--grn,#39ff88);color:#05060f;border-color:var(--grn,#39ff88)}.inst small{display:block;color:var(--dim);font-size:12px;margin-top:8px}
 .nav nav a.on{color:var(--cyan)}
 .nav nav a.on::after{content:"";display:block;height:2px;background:var(--cyan);box-shadow:0 0 8px var(--cyan);margin-top:2px}
 @media(max-width:760px){
@@ -208,7 +209,7 @@ body[data-view=home] .heroart{height:min(58svh,480px)}
           <a class="btn play" href="jouer/">▶ JOUER</a>
           <a class="btn ghost inst-link" href="#installer">INSTALLER L'APP</a>
         </div>
-        <p class="meta">Version <b>0.98.5</b> · Jouable hors ligne · Sans pub</p>
+        <p class="meta">Version <b>0.98.6</b> · Jouable hors ligne · Sans pub</p>
       </div>
       <div class="heroart" aria-hidden="true">
         <img class="h2" src="img/class-merc.webp" alt="" width="520" height="520">
@@ -290,13 +291,13 @@ body[data-view=home] .heroart{height:min(58svh,480px)}
     </div>
   </section>
 
-  <section id="installer" hidden aria-hidden="true">
+  <section id="installer">
     <div class="wrap">
       <h2 class="rv"><small>Installer</small>Joue où tu veux</h2>
       <div class="install">
         <div class="inst rv" style="--c:var(--yel)"><h3>Dans le navigateur</h3><ol><li>Clique sur « Jouer ».</li><li>C'est tout : rien à installer, ta progression est sauvegardée sur l'appareil.</li></ol><a class="btn play" href="jouer/">▶ JOUER</a></div>
         <div class="inst rv" style="--c:var(--cyan)"><h3>Comme une app (Android, iPhone)</h3><ol><li>Ouvre le jeu sur ton téléphone.</li><li><b>Android (Chrome)</b> : menu ⋮ → « Installer l'application ».</li><li><b>iPhone (Safari)</b> : Partager → « Sur l'écran d'accueil ».</li><li>Le jeu se lance en plein écran, même hors ligne.</li></ol></div>
-        <div class="inst rv" style="--c:var(--grn)"><h3>APK Android</h3><ol><li>Télécharge le fichier .apk sur ton téléphone.</li><li>Ouvre-le et autorise l'installation depuis cette source.</li></ol><span class="soon">Bientôt disponible</span></div>
+        <div class="inst rv" style="--c:var(--grn)"><h3>Appli Android (recommandé)</h3><ol><li>Télécharge le fichier sur ton téléphone Android.</li><li>Ouvre-le et autorise l'installation depuis ton navigateur si Android le demande.</li><li>Connecte-toi avec Google dans Options pour retrouver ta progression du site.</li></ol><a class="btn play dl" href="app/CyberCity-Overdrive.apk" download>⬇ TÉLÉCHARGER L'APPLI</a><small>Fichier .apk · 10 Mo · mises à jour automatiques à l'ouverture</small></div>
       </div>
     </div>
   </section>
@@ -312,14 +313,14 @@ body[data-view=home] .heroart{height:min(58svh,480px)}
 
 <footer>
   <div class="wrap">
-    <span>© 2026 CYBERCITY OVERDRIVE · v0.98.5</span>
+    <span>© 2026 CYBERCITY OVERDRIVE · v0.98.6</span>
     <span><a href="jouer/">Jouer</a><span class="inst-link"> · <a href="#installer">Installer</a></span> · <a href="#">Accueil</a></span>
   </div>
 </footer>
 
 <script>
 (function(){
-  var V=['jeu','classes','bestiaire','boss'];
+  var V=['jeu','classes','bestiaire','boss','installer'];
   function show(){
     var v=location.hash.slice(1);if(V.indexOf(v)<0)v='home';
     document.body.dataset.view=v;
