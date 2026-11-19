@@ -3509,7 +3509,7 @@ function eDying(e){const n=performance.now();if(!e.deadT)e.deadT=n;return n-e.de
 function eArt(e,i){const n=performance.now();if(e.hp>0)e.deadT=0;if(!e.spT)e.spT=n;
   let c='',d=0;if(e.hp<=0){c='edie';d=n-e.deadT}else if(e.fx&&n-e.fx.t<480){c='e'+e.fx.k;d=n-e.fx.t}else if(n-e.spT<600){c='espawn';d=n-e.spT}
   return `<div class="eart ${c}" style="--d:-${(((n/1000)+i*1.13)%3.6).toFixed(2)}s;--fd:-${(d/1000).toFixed(3)}s">${e.svg}</div>`}
-function startCombat(node){if(G)G.wonNow=0;music(node.type==='boss'?'boss':node.type==='elite'?'elite':'combat');if(typeof hideComm==='function')hideComm();
+function startCombat(node){if(G)G.wonNow=0;music(node.type==='boss'?'boss':node.type==='elite'?'elite':'combat',node);if(typeof hideComm==='function')hideComm();
   hideScreen();
   const p=G.p;p.block=0;p.str=0;p.dbonus=0;p.fab=0;p.dhits=0;p.xdraw=0;p.xen=0;p.xblk=0;p.vamp=0;p.vplus=0;p.botnet=0;p.vlock=0;p.vx=0;p.keepBlk=0;p.xstr=0;p.dbl=0;p.petRegen=0;p.ptick=0;p.drones=G.st.drones;
   {const w=W();if(w.start)w.start(G.weapon)}
@@ -4569,7 +4569,7 @@ document.addEventListener('pointermove',e=>{if(!slDrag)return;const dx=e.clientX
 document.addEventListener('pointerup',e=>{if(!slDrag)return;const {el,x,s}=slDrag,dx=(e.clientX-x)/UIZ,w=el.clientWidth;slDrag=null;el.classList.remove('drag');
   let i=Math.round(s/w);if(dx<-w*.15)i++;else if(dx>w*.15)i--;slideGo(el.dataset.cls,Math.max(0,Math.min(SKINS[el.dataset.cls].length-1,i)))});
 A.patch=()=>{if(MODAL==='patch'&&modalOpen()){A.closeModal();return}
-  modal(`<div class="mback"><button class="btn sm m" data-a="codexMenu" aria-label="Back to Codex">‹ Codex</button></div><h2>PATCH NOTES</h2><div class="panel" id="glbox"><div class="gl"><b style="color:var(--cyan)">v0.99.0</b> — English version: choose your language at first launch or in Options › Language (Français / English). Your progress is the same in both languages.</div><div class="gl"><b style="color:var(--cyan)">v0.98.8</b> — Options: “ORACLE assistance” becomes “In-game assistance”; the installed Android app version is shown at the bottom of the page. Android app: vibrations work (permission added).</div><div class="gl"><b style="color:var(--cyan)">v0.98.7</b> — Android app: the phone's back button returns to the previous screen (it only quits the app from the title screen) and also closes Options, tips and patch notes; the phone's navigation bar stays hidden (swipe up from the bottom to show it briefly).</div><div class="gl"><b style="color:var(--cyan)">v0.98.6</b> — Install the app from the website: Options › Install the app (download the Android app, or install the web version), and the “Install” section is visible again on cybercity-overdrive.fr.</div><div class="gl"><b style="color:var(--cyan)">v0.98.5</b> — Cloud save: sign in with Google in the Options to find your progress on the website and in the app. Sync at launch and after every change, save choice in case of conflict, sign-out and data deletion at any time.</div><div class="gl"><b style="color:var(--cyan)">v0.98.4</b> — Options as a fullscreen page with square tiles: sound (and volumes), vibrations, in-game assistance, tutorial, intro, story, auto end turn, boss intro, fullscreen; Codex and patch notes stay fullscreen, with a “‹ Options” button to go back. The full boss intro is removed: short or off.</div><div class="gl"><b style="color:var(--cyan)">v0.98.3</b> — More visible updates: download screen with progress (percentage and MB), installation step, then an “Update installed” window with the patch notes when the new version launches.</div><div class="gl"><b style="color:var(--cyan)">v0.98.2</b> — Automatic update: on launch, the Android app downloads the latest version of the game (your saves are kept; offline, it launches the last version kept). If a new version comes out while the game is open, an “Update” banner appears (never mid-fight).</div><div class="gl"><b style="color:var(--cyan)">v0.98.1</b> — Balancing based on your feedback. Netrunner less fragile: 78 HP (instead of 72) and base Defense 1 (+3 Block at fight start). Mercenary less armored: Piston hammer at +level+1 Block per Attack, counterstrike and kept Block reduced to a quarter (counterstrike capped at 2×level+2); Bastion Resonance 5 / 10 / 15 starting Block; Heavy plating talent +3 per star (instead of +4).</div><div class="gl"><b style="color:var(--cyan)">v0.98.0</b> — Memory buffer: after each fight won, keep up to 2 cards from your hand for the next fight (the starting hand is topped up to 5). Not curses; the memory is cleared at the end of each act. Mini-tutorial and glossary entry.</div><div class="gl"><b style="color:var(--cyan)">v0.97.8</b> — Evolution: the “Assistance” box is removed (in-game assistance can still be set in the options).</div><div class="gl"><b style="color:var(--cyan)">v0.97.7</b> — Character sheet, Resonance tab: duo cards appear in color (gold when unlocked); tap a name to show its effect in a box, with its two archetypes and what is missing to unlock it.</div><div class="gl"><b style="color:var(--cyan)">v0.97.6</b> — Tutorial and glossaries updated: new “Archetype view” and “Tutorial and tips” entries, Resonance completed, CyberHunter companion (absorption limited to its HP); the Resonance tip and the end of the tutorial explain the archetype view.</div><div class="gl"><b style="color:var(--cyan)">v0.97.5</b> — Reward screen: tap an archetype chip (Contamination, Propagation, Exploit…) or the badge under a card to see the result of your pick: Resonance gauge with your weapon, your cards and the chosen card, tier gained and its effect, archetype cards offered, in your deck and remaining, duo cards.</div><div class="gl"><b style="color:var(--cyan)">v0.97.4</b> — The square buttons at the top right fade only when a window (tutorial, tip, message) passes over them. New, more readable font (Exo 2) for tutorials, tips, messages, glossary, descriptions and card text. Resonance: the explanation shows right after your first Resonance, with your archetype, your bonus and the next tier; the reward of the very first fight never triggers Resonance, so the act map tutorial comes on its own.</div><div class="gl"><b style="color:var(--cyan)">v0.97.2</b> — Progressive tutorial: each feature gets its mini-tutorial the first time it appears in your first runs, with the relevant element highlighted. On top of the first fight tutorial: act map, elite, boss, boss countermeasure, unknown signal, corrupted shortcut, black market, workshop, implants, talents, archetypes, Resonance, duo cards, loot, legendaries, curse, full hand, discard, mark, control, SPECTRE-9, Evolution and Elite mode.</div><div class="gl"><b style="color:var(--cyan)">v0.97.1</b> — Tutorial: texts fixed (unplayed cards stay in hand; the hand is topped up to 5 cards), end of the tutorial introducing archetypes, Resonance and banning. New contextual tips, shown only once at the right time: act map, black market, workshop, archetypes, Resonance, duo cards, boss loot, legendaries, Elite mode. “Replay the tutorial” turns them back on.</div><div class="gl"><b style="color:var(--cyan)">v0.97.0</b> — Rebalance based on 260 simulated runs. CyberHunter: the companion now only absorbs its remaining HP (the excess hits you), talent +1 damage / +4 HP per star, base Defense 0, Collar and Claws weaker, Hunt / Pack / Feral Resonance reduced. Netrunner: 72 HP, Root access +3 Virus per star, Virus on bosses capped at 12% (instead of 8%). Hydra virus launcher: contagion on all enemies and Virus transfer on death, bonus DoT. Zero-day exploit: more damage, each Hack also gives Block, Hacking +1 per 2 levels. Piston hammer: each Attack gives more Block then strikes for a third of your Block, a third of the Block is kept from one turn to the next, bonus Power. Propagation, Exploit and Bastion Resonance strengthened.</div><div class="gl"><b style="color:var(--cyan)">v0.96.3</b> — “‹ Codex” button at the top of the Glossary, Bestiary, Classes and Patch notes, which stays visible while scrolling. A card's details also have their back button at the top (Glossary, Deck or Character).</div><div class="gl"><b style="color:var(--cyan)">v0.96.2</b> — Classes glossary: each archetype's weapon name is preceded by “Weapon:”, in a more readable font.</div><div class="gl"><b style="color:var(--cyan)">v0.96.1</b> — Card glossary reorganized: class cards sorted by archetype (with their Resonance tiers), then duo, starter and legendaries; common cards sorted by type. New compact List view (default) or Cards. Each class sheet: archetypes, Resonance and duo cards. A card's details show its archetype.</div><div class="gl"><b style="color:var(--cyan)">v0.96.0</b> — Archetypes and Resonance: 3 archetypes per class, one per weapon. 3 or more cards of an archetype (your weapon counts for 2) trigger Resonance I, II, III at 3, 6 and 9 cards, with big passive bonuses. Each reward mixes your main archetype, another archetype and a common card. 12 duo cards (3 per class), unlocked when two archetypes resonate. Bans steer the offered archetypes. New Resonance tab in the Character sheet.</div><div class="gl"><b style="color:var(--cyan)">v0.95.0</b> — 20 new cards: 4 per class (Trojan horse, Spoofing, Denial of service, Exploit chain · Suppressive fire, Buckshot, Fortified position, Execution · Swarm, Shield link, Swarm strike, Mothership · Pounce, Decoy, Order: Attack, Apex predator) and 4 common (Overcharge, Tactical scan, Counterattack, Electric arc). 11 reward cards per class. Banning: focus, each ban favors your class cards and those that fit your weapon's build (⚙ badge).</div><div class="gl"><i>Earlier patch notes (v0.01 to v0.94) are available in the French version.</i></div></div><p class="dim">Click the version icon again (or Esc) to close.</p>`,true);MODAL='patch'};
+  modal(`<div class="mback"><button class="btn sm m" data-a="codexMenu" aria-label="Back to Codex">‹ Codex</button></div><h2>PATCH NOTES</h2><div class="panel" id="glbox"><div class="gl"><b style="color:var(--cyan)">v0.99.1</b> — Reworked music: each act has its own style (synthwave in the slums, industrial in the factories, darkwave in the tower), three different fight tracks per act with their own rhythms, and an elite and boss track per act. The closer you get to the Omega Core, the darker the music: drones, choirs, tolling bells, and the final boss speeds up in phase 2.</div><div class="gl"><b style="color:var(--cyan)">v0.99.0</b> — English version: choose your language at first launch or in Options › Language (Français / English). Your progress is the same in both languages.</div><div class="gl"><b style="color:var(--cyan)">v0.98.8</b> — Options: “ORACLE assistance” becomes “In-game assistance”; the installed Android app version is shown at the bottom of the page. Android app: vibrations work (permission added).</div><div class="gl"><b style="color:var(--cyan)">v0.98.7</b> — Android app: the phone's back button returns to the previous screen (it only quits the app from the title screen) and also closes Options, tips and patch notes; the phone's navigation bar stays hidden (swipe up from the bottom to show it briefly).</div><div class="gl"><b style="color:var(--cyan)">v0.98.6</b> — Install the app from the website: Options › Install the app (download the Android app, or install the web version), and the “Install” section is visible again on cybercity-overdrive.fr.</div><div class="gl"><b style="color:var(--cyan)">v0.98.5</b> — Cloud save: sign in with Google in the Options to find your progress on the website and in the app. Sync at launch and after every change, save choice in case of conflict, sign-out and data deletion at any time.</div><div class="gl"><b style="color:var(--cyan)">v0.98.4</b> — Options as a fullscreen page with square tiles: sound (and volumes), vibrations, in-game assistance, tutorial, intro, story, auto end turn, boss intro, fullscreen; Codex and patch notes stay fullscreen, with a “‹ Options” button to go back. The full boss intro is removed: short or off.</div><div class="gl"><b style="color:var(--cyan)">v0.98.3</b> — More visible updates: download screen with progress (percentage and MB), installation step, then an “Update installed” window with the patch notes when the new version launches.</div><div class="gl"><b style="color:var(--cyan)">v0.98.2</b> — Automatic update: on launch, the Android app downloads the latest version of the game (your saves are kept; offline, it launches the last version kept). If a new version comes out while the game is open, an “Update” banner appears (never mid-fight).</div><div class="gl"><b style="color:var(--cyan)">v0.98.1</b> — Balancing based on your feedback. Netrunner less fragile: 78 HP (instead of 72) and base Defense 1 (+3 Block at fight start). Mercenary less armored: Piston hammer at +level+1 Block per Attack, counterstrike and kept Block reduced to a quarter (counterstrike capped at 2×level+2); Bastion Resonance 5 / 10 / 15 starting Block; Heavy plating talent +3 per star (instead of +4).</div><div class="gl"><b style="color:var(--cyan)">v0.98.0</b> — Memory buffer: after each fight won, keep up to 2 cards from your hand for the next fight (the starting hand is topped up to 5). Not curses; the memory is cleared at the end of each act. Mini-tutorial and glossary entry.</div><div class="gl"><b style="color:var(--cyan)">v0.97.8</b> — Evolution: the “Assistance” box is removed (in-game assistance can still be set in the options).</div><div class="gl"><b style="color:var(--cyan)">v0.97.7</b> — Character sheet, Resonance tab: duo cards appear in color (gold when unlocked); tap a name to show its effect in a box, with its two archetypes and what is missing to unlock it.</div><div class="gl"><b style="color:var(--cyan)">v0.97.6</b> — Tutorial and glossaries updated: new “Archetype view” and “Tutorial and tips” entries, Resonance completed, CyberHunter companion (absorption limited to its HP); the Resonance tip and the end of the tutorial explain the archetype view.</div><div class="gl"><b style="color:var(--cyan)">v0.97.5</b> — Reward screen: tap an archetype chip (Contamination, Propagation, Exploit…) or the badge under a card to see the result of your pick: Resonance gauge with your weapon, your cards and the chosen card, tier gained and its effect, archetype cards offered, in your deck and remaining, duo cards.</div><div class="gl"><b style="color:var(--cyan)">v0.97.4</b> — The square buttons at the top right fade only when a window (tutorial, tip, message) passes over them. New, more readable font (Exo 2) for tutorials, tips, messages, glossary, descriptions and card text. Resonance: the explanation shows right after your first Resonance, with your archetype, your bonus and the next tier; the reward of the very first fight never triggers Resonance, so the act map tutorial comes on its own.</div><div class="gl"><b style="color:var(--cyan)">v0.97.2</b> — Progressive tutorial: each feature gets its mini-tutorial the first time it appears in your first runs, with the relevant element highlighted. On top of the first fight tutorial: act map, elite, boss, boss countermeasure, unknown signal, corrupted shortcut, black market, workshop, implants, talents, archetypes, Resonance, duo cards, loot, legendaries, curse, full hand, discard, mark, control, SPECTRE-9, Evolution and Elite mode.</div><div class="gl"><b style="color:var(--cyan)">v0.97.1</b> — Tutorial: texts fixed (unplayed cards stay in hand; the hand is topped up to 5 cards), end of the tutorial introducing archetypes, Resonance and banning. New contextual tips, shown only once at the right time: act map, black market, workshop, archetypes, Resonance, duo cards, boss loot, legendaries, Elite mode. “Replay the tutorial” turns them back on.</div><div class="gl"><b style="color:var(--cyan)">v0.97.0</b> — Rebalance based on 260 simulated runs. CyberHunter: the companion now only absorbs its remaining HP (the excess hits you), talent +1 damage / +4 HP per star, base Defense 0, Collar and Claws weaker, Hunt / Pack / Feral Resonance reduced. Netrunner: 72 HP, Root access +3 Virus per star, Virus on bosses capped at 12% (instead of 8%). Hydra virus launcher: contagion on all enemies and Virus transfer on death, bonus DoT. Zero-day exploit: more damage, each Hack also gives Block, Hacking +1 per 2 levels. Piston hammer: each Attack gives more Block then strikes for a third of your Block, a third of the Block is kept from one turn to the next, bonus Power. Propagation, Exploit and Bastion Resonance strengthened.</div><div class="gl"><b style="color:var(--cyan)">v0.96.3</b> — “‹ Codex” button at the top of the Glossary, Bestiary, Classes and Patch notes, which stays visible while scrolling. A card's details also have their back button at the top (Glossary, Deck or Character).</div><div class="gl"><b style="color:var(--cyan)">v0.96.2</b> — Classes glossary: each archetype's weapon name is preceded by “Weapon:”, in a more readable font.</div><div class="gl"><b style="color:var(--cyan)">v0.96.1</b> — Card glossary reorganized: class cards sorted by archetype (with their Resonance tiers), then duo, starter and legendaries; common cards sorted by type. New compact List view (default) or Cards. Each class sheet: archetypes, Resonance and duo cards. A card's details show its archetype.</div><div class="gl"><b style="color:var(--cyan)">v0.96.0</b> — Archetypes and Resonance: 3 archetypes per class, one per weapon. 3 or more cards of an archetype (your weapon counts for 2) trigger Resonance I, II, III at 3, 6 and 9 cards, with big passive bonuses. Each reward mixes your main archetype, another archetype and a common card. 12 duo cards (3 per class), unlocked when two archetypes resonate. Bans steer the offered archetypes. New Resonance tab in the Character sheet.</div><div class="gl"><b style="color:var(--cyan)">v0.95.0</b> — 20 new cards: 4 per class (Trojan horse, Spoofing, Denial of service, Exploit chain · Suppressive fire, Buckshot, Fortified position, Execution · Swarm, Shield link, Swarm strike, Mothership · Pounce, Decoy, Order: Attack, Apex predator) and 4 common (Overcharge, Tactical scan, Counterattack, Electric arc). 11 reward cards per class. Banning: focus, each ban favors your class cards and those that fit your weapon's build (⚙ badge).</div><div class="gl"><i>Earlier patch notes (v0.01 to v0.94) are available in the French version.</i></div></div><p class="dim">Click the version icon again (or Esc) to close.</p>`,true);MODAL='patch'};
 let GL_TAB='kw',GL_CAT='common',CARD_BACK=null,GL_ICLS=null;
 /* implants d'équipement conseillés par classe (tous restent disponibles pour toutes les classes) */
 const IMPL_TIP={net:['cpu0','toxin','inj','tact'],merc:['arm','exo','emitter','autoload'],techno:['neurolink','tact','gen','core'],hunter:['tact','exo','derm','nano']};
@@ -4968,7 +4968,7 @@ const fitObs=new MutationObserver(()=>{cancelAnimationFrame(fitObs.r);fitObs.r=r
 addEventListener('resize',()=>requestAnimationFrame(fitText));
 document.documentElement.lang=LANG;
 
-const GAME_VERSION='0.99.0';
+const GAME_VERSION='0.99.1';
 /* ===================== ÉCRAN TITRE & INTRO ===================== */
 /* décor de l'écran titre (v0.66) : tours néon, soleil, projecteurs, balises, brume, sol en grille */
 function titleBG(){
@@ -5123,17 +5123,6 @@ function fatalFx(e,last){
 const AU={ctx:null,master:null,mus:null,sfx:null,fx:null,trk:null,track:null,want:null,step:0,nextT:0,timer:0,noise:null,
   mv:+(store.get('cco_mvol')??0.6),sv:+(store.get('cco_svol')??0.7),mute:store.get('cco_mute')==='1'};
 const mf=m=>440*Math.pow(2,(m-69)/12);
-const CH=(r,q)=>q==='M'?[r,r+4,r+7]:q==='s'?[r,r+5,r+7]:[r,r+3,r+7];
-const PAT=s=>[...s].map(c=>c==='x'?1:c==='o'?.55:0);
-const TRACKS={
-  title:{bpm:84,ch:[CH(45),CH(41,'M'),CH(48,'M'),CH(43,'M')],k:PAT('x...............'),sn:PAT('................'),h:PAT('..o...o...o...o.'),bass:PAT('x.......x.......'),arp:2,pad:.9,lead:null,cut:1400},
-  menu:{bpm:96,ch:[CH(50),CH(46,'M'),CH(41,'M'),CH(48,'M')],k:PAT('x.......x.......'),sn:PAT('....x.......x...'),h:PAT('o.o.o.o.o.o.o.o.'),bass:PAT('x..x..x.x..x..x.'),arp:1,pad:.7,lead:null,cut:1800,gen:1,soft:1},
-  map:{bpm:100,ch:[CH(40),CH(48,'M'),CH(43,'M'),CH(50,'M')],k:PAT('x.........x.....'),sn:PAT('................'),h:PAT('..o...o...o...oo'),bass:PAT('x.......x...x...'),arp:2,pad:.8,lead:null,cut:1500,gen:1,soft:1},
-  combat:{bpm:124,ch:[CH(45),CH(45),CH(41,'M'),CH(43,'M')],k:PAT('x...x...x...x...'),sn:PAT('....x.......x...'),h:PAT('..x...x...x...x.'),bass:PAT('xxxxxxxxxxxxxxxx'),oct:1,arp:1,pad:.45,lead:null,cut:2400,gen:1},
-  elite:{bpm:132,ch:[CH(43),CH(46,'M'),CH(41,'M'),CH(38)],k:PAT('x..x..x.x..x..x.'),sn:PAT('....x.......x...'),h:PAT('xoxoxoxoxoxoxoxo'),bass:PAT('xxxxxxxxxxxxxxxx'),oct:1,arp:1,pad:.5,dist:1,cut:2800,lead:null,gen:1},
-  boss:{bpm:140,ch:[CH(48),CH(44,'M'),CH(46,'M'),CH(43,'M')],k:PAT('x...x...x...x.x.'),sn:PAT('....x.......x..o'),h:PAT('oxoxoxoxoxoxoxox'),bass:PAT('xxxxxxxxxxxxxxxx'),oct:1,arp:1,pad:.5,dist:1,cut:3000,
-    lead:[72,null,75,null,79,null,77,75,74,null,72,null,74,75,74,null, 68,null,72,null,75,null,77,79,80,null,79,77,75,null,74,null, 70,null,74,null,77,null,79,77,74,null,72,null,70,72,74,null, 67,null,71,null,74,null,77,null,79,null,77,74,71,null,67,null]}
-};
 function auInit(){
   if(AU.ctx)return true;const C=window.AudioContext||window.webkitAudioContext;if(!C)return false;
   try{AU.ctx=new C()}catch(e){return false}
@@ -5183,53 +5172,160 @@ function snare(dest,t,v){noiseHit(dest,t,.22,.3*v,'bandpass',1900,.7,{rv:.35});n
 function pump(t,depth){if(!AU.pump)return;const g=AU.pump.gain;g.cancelScheduledValues(t);g.setValueAtTime(1-depth,t);g.setTargetAtTime(1,t+.01,.085)}
 /* ambiance de jeu : PV bas, boss blessé */
 function auMood(){const m={low:0,half:0};try{if(G&&G.enemies&&G.enemies.length&&G.p&&G.p.max){m.low=G.p.hp/G.p.max<.35?1:0;const b=G.enemies.find(e=>e.boss&&e.hp>0);if(b)m.half=(b.hp/b.max<.5||b.revived)?1:0}}catch(e){}return m}
-/* mélodie générée à partir des accords (graine fixe par piste et par acte) */
-function genLead(T,name){let r=0;for(const ch of name)r=(r*31+ch.charCodeAt(0))%9973;r+=(G?G.act:0)*101;const R=()=>(r=(r*9301+49297)%233280)/233280;
-  const L=[];for(let b=0;b<4;b++){const chd=T.ch[b%T.ch.length],sc=[chd[0],chd[1],chd[2],chd[0]+12,chd[1]+12];let last=2;
-    for(let s=0;s<16;s++){const on=s%4===0?R()<.8:s%2===0?R()<.45:R()<.18;if(on){last=Math.max(0,Math.min(sc.length-1,last+Math.round(R()*4-2)));L.push(sc[last]+12)}else L.push(null)}}
+/* v0.99.1 : MUSIQUE — un compositeur par acte.
+   Acte 1 (néons) : synthwave, groove dansant · Acte 2 (usines) : industriel, percussions métalliques, rythmes cassés
+   Acte 3 (tour) : darkwave, phrygien, drones et chœurs, de plus en plus sombre à mesure qu'on approche du Noyau.
+   AU.I (0 → 1) = intensité : monte avec les actes et les étapes, 1 au boss final. */
+const CH=(r,q)=>q==='M'?[r,r+4,r+7]:q==='s'?[r,r+5,r+7]:q==='d'?[r,r+3,r+6]:q==='5'?[r,r+7,r+12]:[r,r+3,r+7];
+const PAT=s=>[...s].map(c=>c==='x'?1:c==='o'?.55:c==='.'?0:.3);
+const DR=(k,sn,h,m,extra)=>Object.assign({k:PAT(k),sn:PAT(sn),h:PAT(h),m:m?PAT(m):null},extra||{});
+/* --- les morceaux de base (menu, titre) --- */
+const TRACKS={
+  title:{bpm:84,ch:[CH(45),CH(41,'M'),CH(48,'M'),CH(43,'M')],dr:{main:DR('x...............','................','..o...o...o...o.')},bass:PAT('x.......x.......'),arp:2,pad:.9,lead:null,cut:1400,kit:'synth'},
+  menu:{bpm:96,ch:[CH(50),CH(46,'M'),CH(41,'M'),CH(48,'M')],dr:{main:DR('x.......x.......','....x.......x...','o.o.o.o.o.o.o.o.')},bass:PAT('x..x..x.x..x..x.'),arp:1,pad:.7,lead:null,cut:1800,gen:1,soft:1,kit:'synth',sc:'min'}
+};
+/* gammes pour les mélodies générées */
+const SCALES={min:[0,2,3,5,7,8,10],dor:[0,2,3,5,7,9,10],hmin:[0,2,3,5,7,8,11],phr:[0,1,3,5,7,8,10],loc:[0,1,3,5,6,8,10]};
+/* --- banque par acte : accords, rythmes, sons --- */
+const ACTMUS=[
+ { /* ACTE 1 · BIENVENUE À CYBERCITY : synthwave, majeur/mineur lumineux */
+  map:{bpm:98,swing:.14,ch:[CH(45),CH(48,'M'),CH(43,'M'),CH(50)],dr:{main:DR('x.........x.....','....x.......x...','..o...o...o...oo')},bass:PAT('x.......x...x...'),bw:'square',arp:2,pad:.8,cut:1500,gen:1,soft:1,kit:'synth',sc:'min'},
+  combat:[
+   {bpm:122,ch:[CH(45),CH(45),CH(41,'M'),CH(43,'M')],dr:{main:DR('x...x...x...x...','....x.......x...','..x...x...x...x.'),drop:DR('x...x...x...x...','....x.......x..o','oxoxoxoxoxoxoxox')},bass:PAT('xxxxxxxxxxxxxxxx'),oct:1,bw:'square',arp:1,pad:.45,cut:2400,gen:1,kit:'synth',sc:'min'},
+   {bpm:116,swing:.16,ch:[CH(50),CH(46,'M'),CH(41,'M'),CH(48,'M')],dr:{main:DR('x.....x...x.....','....x.......x...','xoxoxoxoxoxoxoxo'),drop:DR('x.....x...x...x.','....x.......x.o.','xoxoxoxoxoxoxoxo')},bass:PAT('x..x..x...x.x..x'),bw:'square',arp:2,pad:.6,cut:2000,gen:1,kit:'synth',sc:'dor'},
+   {bpm:126,ch:[CH(45),CH(40),CH(41,'M'),CH(43,'M')],dr:{main:DR('x.x.......xx....','....x..o.o..x..o','x.x.x.x.x.x.x.x.'),drop:DR('x.x.......xx..x.','....x..o.o..x.oo','xoxoxoxoxoxoxoxo')},bass:PAT('x.x...x.x.x...xx'),bw:'square',arp:1,pad:.5,cut:2600,gen:1,kit:'break',sc:'min'}
+  ],
+  elite:{bpm:130,ch:[CH(43),CH(46,'M'),CH(41,'M'),CH(38)],dr:{main:DR('x..x..x.x..x..x.','....x.......x...','xoxoxoxoxoxoxoxo')},bass:PAT('xxxxxxxxxxxxxxxx'),oct:1,bw:'saw',arp:1,pad:.5,dist:1,cut:2800,gen:1,kit:'synth',sc:'min'},
+  boss:{bpm:138,ch:[CH(48),CH(44,'M'),CH(46,'M'),CH(43,'M')],dr:{main:DR('x...x...x...x.x.','....x.......x..o','oxoxoxoxoxoxoxox')},bass:PAT('xxxxxxxxxxxxxxxx'),oct:1,bw:'saw',arp:1,pad:.5,dist:1,cut:3000,kit:'synth',
+    lead:[72,null,75,null,79,null,77,75,74,null,72,null,74,75,74,null, 68,null,72,null,75,null,77,79,80,null,79,77,75,null,74,null, 70,null,74,null,77,null,79,77,74,null,72,null,70,72,74,null, 67,null,71,null,74,null,77,null,79,null,77,74,71,null,67,null]}
+ },
+ { /* ACTE 2 · RENCONTRE AVEC LA MACHINE : industriel, mineur harmonique, métal et rythmes cassés */
+  map:{bpm:104,ch:[CH(50),CH(50),CH(46,'M'),CH(45,'M')],dr:{main:DR('x.......x.x.....','........x.......','..o...o...o...o.','x..x..x..x..x...')},bass:PAT('x..x..x..x..x...'),bw:'saw',arp:0,pad:.75,cut:1200,gen:1,soft:1,kit:'indus',sc:'hmin',clang:1},
+  combat:[
+   {bpm:128,ch:[CH(50),CH(46,'M'),CH(43),CH(45,'M')],dr:{main:DR('x...x...x...x...','....x.......x...','..x...x...x...x.','..x...x...x..x.x'),drop:DR('x...x...x...x.x.','....x.......x..x','oxoxoxoxoxoxoxox','x.x.x.x..x.x.x.x')},bass:PAT('.x.x.x.x.x.x.x.x'),bw:'saw',arp:2,pad:.45,dist:1,cut:2000,gen:1,kit:'indus',sc:'hmin'},
+   {bpm:132,ch:[CH(50),CH(50),CH(48,'M'),CH(46,'M')],dr:{main:DR('x.....x.x.......','........x.......','x.x.x.x.x.x.x.x.','...x.....x...x..'),drop:DR('x.....x.x.....x.','........x.....o.','xoxoxoxoxoxoxoxo','.x.x.x.x.x.x.x.x')},bass:PAT('x.xx.xx.x.xx.xx.'),bw:'saw',arp:0,pad:.55,dist:1,cut:1700,gen:1,kit:'indus',sc:'hmin',half:1},
+   {bpm:130,ch:[CH(43),CH(43),CH(51,'M'),CH(50,'M')],dr:{main:DR('x..x..x...x..x..','....x.......x...','xxoxxoxxoxxoxxox','x..x..x.x..x..x.'),drop:DR('x..x..x...x..x.x','....x..o....x.oo','xxoxxoxxoxxoxxox','x.xx.xx.x.xx.xx.')},bass:PAT('x..x..x...x..x..'),bw:'saw',arp:1,pad:.5,dist:1,cut:2200,gen:1,kit:'break',sc:'phr'}
+  ],
+  elite:{bpm:136,ch:[CH(50),CH(49,'M'),CH(50),CH(46,'M')],dr:{main:DR('x..x..x.x..x..x.','....x.......x..o','xoxoxoxoxoxoxoxo','.x.x.x.x.x.x.x.x')},bass:PAT('xxxxxxxxxxxxxxxx'),oct:1,bw:'saw',arp:1,pad:.5,dist:1,cut:2600,gen:1,kit:'indus',sc:'phr'},
+  boss:{bpm:142,ch:[CH(50),CH(46,'M'),CH(49,'M'),CH(45,'M')],dr:{main:DR('x...x...x...x.x.','....x.......x..o','oxoxoxoxoxoxoxox','x.x.x.x.x.x.x.x.')},bass:PAT('xxxxxxxxxxxxxxxx'),oct:1,bw:'saw',arp:1,pad:.55,dist:1,cut:2800,gen:1,kit:'indus',sc:'hmin',choir:.5},
+  twins:{bpm:144,ch:[CH(50),CH(50),CH(46,'M'),CH(49,'M')],dr:{main:DR('x..x..x.x..x..x.','....x.......x...','xxoxxoxxoxxoxxox','x..x..x...x..x..'),drop:DR('x..x..x.x..x.xx.','....x.......x.xx','xxoxxoxxoxxoxxox','x.xx.xx.x.xx.xx.')},bass:PAT('x..x..x.x..x..x.'),bw:'saw',arp:1,pad:.5,dist:1,cut:2600,gen:1,kit:'indus',sc:'hmin',clang:1}
+ },
+ { /* ACTE 3 · LA DERNIÈRE DANSE : darkwave, phrygien, drones, chœurs, glas */
+  map:{bpm:86,ch:[CH(40),CH(41,'M'),CH(40),CH(38)],dr:{main:DR('x...............','........x.......','..o.......o.....')},bass:PAT('x...............'),bw:'saw',arp:4,pad:.85,cut:900,gen:1,soft:1,kit:'dark',sc:'phr',drone:1,choir:.6,vol:1.7},
+  combat:[
+   {bpm:136,ch:[CH(40),CH(41,'M'),CH(40),CH(38)],dr:{main:DR('x...x...x...x...','....x.......x...','..x...x...x...x.'),drop:DR('x...x...x...x...','....x.......x..o','oxoxoxoxoxoxoxox')},bass:PAT('.xxx.xxx.xxx.xxx'),bw:'saw',arp:2,pad:.5,dist:1,cut:1800,gen:1,kit:'dark',sc:'phr',drone:1},
+   {bpm:142,ch:[CH(37),CH(38,'M'),CH(37),CH(36,'d')],dr:{main:DR('x.x.x...x.x.x...','....x.......x...','xoxoxoxoxoxoxoxo'),drop:DR('x.x.x.x.x.x.x.x.','....x.......x.xx','xxxxxxxxxxxxxxxx')},bass:PAT('x.xxx.xxx.xxx.xx'),bw:'saw',arp:1,pad:.45,dist:1,cut:2000,gen:1,kit:'dark',sc:'phr'},
+   {bpm:140,ch:[CH(40),CH(40),CH(43,'M'),CH(41,'M')],dr:{main:DR('x.....x.........','........x.......','x.x.x.x.x.x.x.x.'),drop:DR('x.....x...x.....','........x.....oo','xoxoxoxoxoxoxoxo')},bass:PAT('x.....x.x.......'),bw:'saw',arp:0,pad:.7,dist:1,cut:1400,gen:1,kit:'dark',sc:'loc',half:1,drone:1,choir:.5,vol:1.25}
+  ],
+  elite:{bpm:144,ch:[CH(40),CH(41,'M'),CH(38),CH(39,'d')],dr:{main:DR('x.x.x...x.x.x...','....x.......x..o','xoxoxoxoxoxoxoxo')},bass:PAT('xxxxxxxxxxxxxxxx'),oct:1,bw:'saw',arp:1,pad:.5,dist:1,cut:2200,gen:1,kit:'dark',sc:'phr',drone:1},
+  boss:{bpm:148,bpm2:156,ch:[CH(36),CH(37,'M'),CH(36),CH(35,'d')],dr:{main:DR('x...x...x...x.x.','....x.......x..o','oxoxoxoxoxoxoxox'),drop:DR('x.x.x.x.x.x.x.xx','....x.......x.xx','xxxxxxxxxxxxxxxx')},bass:PAT('xxxxxxxxxxxxxxxx'),oct:1,bw:'saw',arp:1,pad:.6,dist:1,cut:2400,kit:'dark',sc:'phr',drone:1,choir:.8,toll:1,
+    lead:[72,null,73,null,75,null,73,72,70,null,72,null,73,null,null,null, 72,null,73,null,77,null,75,73,72,null,70,null,68,null,null,null, 72,null,73,null,75,null,77,79,80,null,79,77,75,null,73,null, 79,null,77,null,75,null,73,null,72,null,73,72,71,null,null,null]}
+ }];
+/* le morceau joué dépend du lieu, de l'acte, du combat (variante) et de la progression dans l'acte */
+function musPick(name,node){
+  if(!G||!G.p||(name!=='map'&&name!=='combat'&&name!=='elite'&&name!=='boss'))return {key:name,T:TRACKS[name],I:0};
+  const a=Math.max(0,Math.min(2,G.act|0)),prog=Math.max(0,Math.min(1,(G.step||0)/NS)),M=ACTMUS[a];
+  let I=a===0?.1*prog:a===1?.3+.25*prog:.55+.45*prog,T,v=0;
+  if(name==='map')T=M.map;
+  else if(name==='combat'){v=((G.step||0)*5+a*3+(G.rs?G.rs.combats|0:0))%M.combat.length;T=M.combat[v]}
+  else if(name==='elite'){T=M.elite;I=Math.min(1,I+.1)}
+  else{const ids=(node&&node.enemies)||(G.enemies||[]).map(e=>e.id)||[];T=a===1&&ids.length>1?M.twins:M.boss;v=T===M.twins?1:0;I=a===2?1:Math.min(1,I+.15)}
+  const q=Math.round(I*10);return {key:name+'|'+a+'|'+v+'|'+q,T,I}}
+/* gamme : notes de mélodie sur les accords, couleur de la gamme de l'acte */
+function genLead(T,name){let r=0;for(const ch of name)r=(r*31+ch.charCodeAt(0))%9973;r+=(G?(G.act|0)*101+(G.rs?G.rs.combats|0:0)*7:0);const R=()=>(r=(r*9301+49297)%233280)/233280;
+  const SC=SCALES[T.sc||'min'],dense=T.half?.6:1;
+  const L=[];for(let b=0;b<4;b++){const chd=T.ch[b%T.ch.length],root=chd[0];
+    const sc=[];for(let o=0;o<2;o++)SC.forEach(iv=>sc.push(root+iv+o*12));
+    let last=4+Math.floor(R()*3);
+    for(let s=0;s<16;s++){const on=s%4===0?R()<.8*dense:s%2===0?R()<.45*dense:R()<.15*dense;
+      if(on){const strong=s%4===0;let k=last+Math.round(R()*4-2);k=Math.max(0,Math.min(sc.length-1,k));
+        if(strong){const tones=chd.map(n=>n-root);let best=k,bd=99;sc.forEach((n,j)=>{if(tones.includes((n-root)%12)&&Math.abs(j-k)<bd){bd=Math.abs(j-k);best=j}});k=best}
+        last=k;L.push(sc[k]+12)}else L.push(null)}}
   return L}
+/* --- nouveaux instruments --- */
+/* percussion métallique (usines) : bruit résonant + tintement inharmonique */
+function clank(dest,t,v,pan){noiseHit(dest,t,.09,.16*v,'bandpass',3200+Math.random()*900,9,{pan,rv:.25});
+  voice(dest,'square',mf(88+Math.floor(Math.random()*3)),t,.04,.035*v,{cut:7000,s:.1,pan:-pan,r:.08});voice(dest,'triangle',mf(95),t,.05,.03*v,{cut:8000,s:.1,pan,r:.12})}
+function tom(dest,t,f,v){const c=AU.ctx,o=c.createOscillator(),g=c.createGain();o.type='sine';o.frequency.setValueAtTime(f*1.8,t);o.frequency.exponentialRampToValueAtTime(f,t+.08);
+  g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.001,t+.3);o.connect(g);g.connect(dest);if(AU.rv){const s=c.createGain();s.gain.value=.3;g.connect(s);s.connect(AU.rv)}o.start(t);o.stop(t+.32)}
+/* grosse caisse « rumble » (techno sombre) : queue grave filtrée et réverbérée */
+function rumble(dest,t,v,len){const c=AU.ctx,o=c.createOscillator(),g=c.createGain(),f=c.createBiquadFilter();o.type='sawtooth';o.frequency.setValueAtTime(52,t);o.frequency.exponentialRampToValueAtTime(38,t+len);
+  f.type='lowpass';f.frequency.value=140;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+.04);g.gain.exponentialRampToValueAtTime(.001,t+len);o.connect(f);f.connect(g);g.connect(dest);o.start(t);o.stop(t+len+.02)}
+/* chœur : voyelle « aah » (voix triangle + vibrato + formant) */
+function choir(dest,notes,t,len,v){const c=AU.ctx;notes.forEach((n,k)=>[-7,7].forEach((dt,j)=>{const o=c.createOscillator(),g=c.createGain(),f1=c.createBiquadFilter(),lfo=c.createOscillator(),lg=c.createGain();
+  o.type='sawtooth';o.frequency.value=mf(n);o.detune.value=dt;lfo.frequency.value=4.6+k*.3+j*.2;lg.gain.value=9;lfo.connect(lg);lg.connect(o.detune);
+  f1.type='bandpass';f1.frequency.value=[750,1100,650][k%3];f1.Q.value=2.2;let out=g;
+  if(c.createStereoPanner){const p=c.createStereoPanner();p.pan.value=j?.5:-.5;g.connect(p);out=p}
+  o.connect(f1);f1.connect(g);out.connect(dest);if(AU.rv){const s=c.createGain();s.gain.value=.8;out.connect(s);s.connect(AU.rv)}
+  g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+len*.35);g.gain.setValueAtTime(v,t+len*.75);g.gain.linearRampToValueAtTime(0,t+len);
+  o.start(t);lfo.start(t);o.stop(t+len+.05);lfo.stop(t+len+.05)}))}
+/* drone : sous-basse qui respire, filtre lent */
+function drone(dest,n,t,len,v){const c=AU.ctx;[0,7].forEach((dt,k)=>{const o=c.createOscillator(),g=c.createGain(),f=c.createBiquadFilter(),l=c.createOscillator(),lg=c.createGain();
+  o.type='sawtooth';o.frequency.value=mf(n+(k?7:0));o.detune.value=k?-6:6;f.type='lowpass';f.frequency.value=220;f.Q.value=4;l.frequency.value=.12+k*.05;lg.gain.value=160;l.connect(lg);lg.connect(f.frequency);
+  o.connect(f);f.connect(g);g.connect(dest);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v*(k?.6:1),t+len*.3);g.gain.setValueAtTime(v*(k?.6:1),t+len*.8);g.gain.linearRampToValueAtTime(0,t+len);
+  o.start(t);l.start(t);o.stop(t+len+.05);l.stop(t+len+.05)})}
+/* glas : cloche grave inharmonique */
+function toll(dest,n,t,v){[1,2.76,5.4,8.9].forEach((r,k)=>voice(dest,'sine',mf(n)*r,t,2.2/(k+1),v/(k+1.5),{a:.002,d:.6,s:.25,r:1.2,cut:2400,rv:.9,send:.2,pan:k%2?.3:-.3}))}
+/* caisse claire sombre (tour) : plus grave, plus large */
+function snareD(dest,t,v){noiseHit(dest,t,.3,.3*v,'bandpass',1150,.8,{rv:.55});noiseHit(dest,t+.006,.1,.1*v,'highpass',2600,.5,{rv:.35});voice(dest,'triangle',150,t,.09,.24*v,{cut:700,glide:.55})}
+const SN=(T,d,t,v)=>T.kit==='dark'?snareD(d,t,v):snare(d,t,v);
 /* --- séquenceur --- */
-function music(name){
-  AU.want=name;if(!AU.ctx||AU.ctx.state!=='running'){return}
-  if(name===AU.track)return;
+function music(name,node){
+  AU.want=name;if(name)AU.wantNode=node||AU.wantNode;if(!AU.ctx||AU.ctx.state!=='running'){return}
+  const P=name?musPick(name,node||AU.wantNode):{key:null};
+  if(P.key===AU.track)return;
   const c=AU.ctx,t=c.currentTime;
   if(AU.trk){const old=AU.trk;old.gain.setTargetAtTime(0,t,.3);setTimeout(()=>{try{old.disconnect()}catch(e){}},2500)}
-  AU.track=name;clearInterval(AU.timer);AU.trk=null;AU.pump=null;if(!name||!TRACKS[name])return;
-  AU.trk=c.createGain();AU.trk.gain.setValueAtTime(0,t);AU.trk.gain.linearRampToValueAtTime(1,t+.9);AU.trk.connect(AU.mus);
-  /* bus des synthés : filtre global (intro, pause) + pompe */
+  AU.track=P.key;clearInterval(AU.timer);AU.trk=null;AU.pump=null;if(!name||!P.T)return;const T=P.T;AU.T=T;
+  AU.I=P.I||0;
+  AU.trk=c.createGain();AU.trk.gain.setValueAtTime(0,t);AU.trk.gain.linearRampToValueAtTime(T.vol||1,t+.9);AU.trk.connect(AU.mus);
   AU.filt=c.createBiquadFilter();AU.filt.type='lowpass';AU.filt.frequency.value=18000;AU.pump=c.createGain();AU.filt.connect(AU.pump);AU.pump.connect(AU.trk);
-  const T=TRACKS[name];AU.tr=(G&&(name==='combat'||name==='elite'||name==='map'))?[0,3,-2][Math.min(2,G.act)]:0;
-  AU.lead=T.lead||(T.gen?genLead(T,name):null);
+  AU.tr=0;AU.lead=T.lead||(T.gen?genLead(T,P.key):null);
   AU.step=0;AU.nextT=t+.08;AU.timer=setInterval(auTick,25);
 }
 /* arrangement en 24 mesures : intro (4) · couplet (8) · pause (4) · refrain (8) */
 function auSec(bar,T){const b=bar%24;if(bar<4&&!T.soft)return 'intro';return b<4?(bar<4?'intro':'main'):b<12?'main':b<16?'break':'drop'}
 function auTick(){
-  const c=AU.ctx,T=TRACKS[AU.track];if(!T||!AU.trk)return;const dst=AU.trk,syn=AU.filt,sd=60/T.bpm/4,tr=AU.tr||0;
+  const c=AU.ctx,T=AU.T;if(!T||!AU.trk)return;const dst=AU.trk,syn=AU.filt,I=AU.I||0;
   while(AU.nextT<c.currentTime+.12){
-    const st=AU.step%16,bar=Math.floor(AU.step/16),chord=T.ch[bar%T.ch.length].map(n=>n+tr),t=AU.nextT,sec=auSec(bar,T);
+    const half=AU.mood&&AU.mood.half,bpm=(half&&T.bpm2)||T.bpm,sd=60/bpm/4;
+    const st=AU.step%16,bar=Math.floor(AU.step/16),chord=T.ch[bar%T.ch.length],sec=auSec(bar,T);
+    const t=AU.nextT+(T.swing&&st%2===1?sd*T.swing:0);
+    const P=(sec==='drop'&&T.dr.drop)||T.dr.main;
     if(st===0){AU.mood=auMood();
-      const f=sec==='intro'?600+(bar%4)*900:sec==='break'?900:18000;AU.filt.frequency.setTargetAtTime(f,t,sec==='break'?.4:.15);
-      if(sec==='drop'&&bar%24===16||bar===4&&!T.soft)noiseHit(dst,t,1.6,.22,'highpass',5000,.4,{rv:.6});}
+      const f=sec==='intro'?600+(bar%4)*900:sec==='break'?900:18000*(1-.35*I);AU.filt.frequency.setTargetAtTime(f,t,sec==='break'?.4:.15);
+      if(sec==='drop'&&bar%24===16||bar===4&&!T.soft)noiseHit(dst,t,1.6,.22,'highpass',5000,.4,{rv:.6});
+      /* drone, chœur et glas : la tour s'assombrit */
+      if(T.drone&&bar%2===0)drone(syn,Math.max(28,chord[0]-12),t,sd*32,.08+.09*I);
+      if(T.choir&&bar%2===0&&(sec==='drop'||sec==='break'||T.soft||I>.75))choir(syn,chord.map(n=>n+12),t,sd*32,.022*T.choir*(.6+.6*I));
+      if((T.toll||I>.8)&&bar%4===0)toll(dst,chord[0]+12,t,.09);
+    }
     const drums=sec!=='intro'&&sec!=='break',full=sec==='drop'||AU.mood&&(AU.mood.low||AU.mood.half);
-    if(T.k[st]&&drums){kick(dst,t,.95*T.k[st]);pump(t,T.soft?.25:.55)}
-    if(sec==='break'&&bar%24===15&&st%2===0)snare(dst,t,.25+st/32);/* montée */
-    if(T.sn[st]&&drums)snare(dst,t,T.sn[st]);
-    if(T.h[st]&&sec!=='intro')noiseHit(dst,t,.045,.1*T.h[st],'highpass',7500,1,{pan:st%4<2?-.3:.3});
-    if(drums&&full&&st%2===1&&!T.h[st])noiseHit(dst,t,.03,.06,'highpass',9000,1,{pan:.4});
-    if(drums&&st===14&&T.h[st]===0&&!T.soft)noiseHit(dst,t,.22,.09,'highpass',6000,.6,{pan:-.2});/* charleston ouvert */
-    if(T.bass[st]&&sec!=='intro'&&sec!=='break'){const n=chord[0]-12+(T.oct&&st%2?12:0);
-      voice(syn,T.dist?'sawtooth':'square',mf(n),t,sd*(T.oct?.85:3),.19,{cut:T.dist?900:520,sweep:T.dist?300:210,q:T.dist?6:3,s:.4});
-      voice(syn,'sine',mf(n-12),t,sd*(T.oct?.85:3),.16,{cut:300,s:.7})}
-    if(st%T.arp===0){const seq=[0,1,2,1,0,2,1,2],i=(AU.step/T.arp)%8,oc=[12,12,24,12,24,24,12,24][i];voice(syn,'square',mf(chord[seq[i]]+oc),t,sd*.8,.06,{cut:T.cut,s:.2,send:.5,rv:.2,pan:i%2?.35:-.35})}
-    if(st===0&&T.pad){const len=sd*16;chord.forEach((n,k)=>[-12,0,12].forEach((dt,j)=>voice(syn,'sawtooth',mf(n+12),t,len*.94,.028*T.pad,{a:.4,d:.7,s:.85,r:.35,cut:sec==='break'?700:1100,det:dt+(k-1)*3,pan:[-.6,0,.6][j],rv:.5})))}
+    const fill=drums&&bar%8===7&&st>=12&&!T.soft;
+    if(P.k[st]&&drums&&!fill){if(T.kit==='dark'){kick(dst,t,.9*P.k[st]);rumble(dst,t+sd*.5,.22+.12*I,sd*1.6)}else kick(dst,t,.95*P.k[st]);pump(t,T.soft?.25:T.kit==='dark'?.65:.55)}
+    if(sec==='break'&&bar%24===15&&st%2===0)SN(T,dst,t,.25+st/32);/* montée */
+    if(P.sn[st]&&drums&&!fill)SN(T,dst,t,P.sn[st]);
+    if(fill){if(T.kit==='indus'||T.kit==='dark')tom(dst,t,[180,150,120,95][st-12],.5);else snare(dst,t,.4+(st-12)*.15)}
+    if(P.h[st]&&sec!=='intro')noiseHit(dst,t,.045,(T.kit==='dark'?.055:.1)*P.h[st],T.kit==='dark'?'bandpass':'highpass',T.kit==='dark'?6000:7500,1,{pan:st%4<2?-.3:.3});
+    if(P.m&&P.m[st]&&sec!=='intro')clank(dst,t,P.m[st]*(drums?1:.5),st%4<2?.45:-.45);
+    if(T.clang&&st===10&&bar%2===1&&sec!=='intro')clank(dst,t,1.2,0);
+    if(drums&&full&&st%2===1&&!P.h[st])noiseHit(dst,t,.03,T.kit==='dark'?.035:.06,'highpass',T.kit==='dark'?7000:9000,1,{pan:.4});
+    if(drums&&st===14&&P.h[st]===0&&!T.soft)noiseHit(dst,t,.22,.09,'highpass',6000,.6,{pan:-.2});/* charleston ouvert */
+    if(T.bass[st]&&sec!=='intro'&&(sec!=='break'||T.soft)){let n=chord[0]-12+(T.oct&&st%2?12:0);while(n<28)n+=12;
+      const dist=T.dist||I>.6,w=T.bw==='saw'||dist?'sawtooth':'square';
+      voice(syn,w,mf(n),t,sd*(T.oct?.85:T.half?4:2.6),.19,{cut:dist?(T.kit==='dark'?650:900):520,sweep:dist?260:210,q:dist?6:3,s:.4});
+      voice(syn,'sine',mf(n-12<24?n:n-12),t,sd*(T.oct?.85:3),.16,{cut:300,s:.7})}
+    if(T.arp&&st%T.arp===0){const seq=[0,1,2,1,0,2,1,2],i=(AU.step/T.arp)%8,oc=[12,12,24,12,24,24,12,24][i];
+      voice(syn,T.kit==='dark'?'triangle':'square',mf(chord[seq[i]]+oc-(T.kit==='dark'?12:0)),t,sd*.8,T.kit==='dark'?.07:.06,{cut:T.cut*(1-.45*I),s:.2,send:.5,rv:.2+.2*I,pan:i%2?.35:-.35})}
+    if(st===0&&T.pad){const len=sd*16;chord.forEach((n,k)=>[-12,0,12].forEach((dt,j)=>voice(syn,'sawtooth',mf(n+12),t,len*.94,.028*T.pad,{a:.4,d:.7,s:.85,r:.35,cut:(sec==='break'?700:1100)*(1-.4*I),det:dt+(k-1)*3,pan:[-.6,0,.6][j],rv:.5+.2*I})))}
     const lead=AU.lead;if(lead&&(sec==='drop'||(sec==='main'&&bar%24>=8)||T.lead&&sec!=='intro')){const n=lead[AU.step%lead.length];
-      if(n){const up=AU.mood&&AU.mood.half&&AU.track==='boss'?12:0;voice(syn,'sawtooth',mf(n+tr+up),t,sd*1.7,.075,{cut:2600,sweep:1500,s:.6,send:.45,rv:.35,det:6});voice(syn,'square',mf(n+tr+up),t,sd*1.6,.03,{cut:1800,s:.5,det:-8,pan:.25})}}
+      if(n){const up=(half&&AU.track&&AU.track.startsWith('boss')?12:0)-(T.kit==='dark'&&!T.lead?12:0);voice(syn,'sawtooth',mf(n+up),t,sd*1.7,.075,{cut:2600,sweep:1500,s:.6,send:.45,rv:.35,det:6});voice(syn,'square',mf(n+up),t,sd*1.6,.03,{cut:1800,s:.5,det:-8,pan:.25})}}
     /* tension : pulsation d'alarme quand tes PV sont bas */
     if(AU.mood&&AU.mood.low&&st%8===0&&drums)voice(syn,'triangle',mf(chord[0]+36),t,sd*1.2,.04,{cut:3000,s:.3,rv:.3});
     AU.nextT+=sd;AU.step++;
   }
 }
+
 /* --- jingles et effets --- */
 /* v0.91.0 : jingles retravaillés — accords doux, carillon, réverbe (plus de bip carré) */
 function bell(d,n,t,v,pan){voice(d,'sine',mf(n),t,.9,v,{a:.003,d:.25,s:.15,r:.5,cut:6000,rv:.6,send:.25,pan});voice(d,'sine',mf(n+12)*1.004,t,.5,v*.35,{a:.002,d:.12,s:.05,r:.3,cut:8000,rv:.5,pan:-pan||0})}
@@ -5374,7 +5470,7 @@ function bintNext(){
   if(sh.d)BI.timer=setTimeout(function wait(){if(!BI)return;if(BI.typing){BI.timer=setTimeout(wait,150);return}BI.timer=setTimeout(bintNext,sh.hold||900)},sh.d);
 }
 /* --- intro de boss --- */
-function bossIntro(n,done){music('boss');
+function bossIntro(n,done){music('boss',n);
   const key=bintKey(n),D=BINT[key],ids=n.enemies,cls=G.cls,sk=curSkin(cls),IM=skinImg(cls,sk)||{},col=clsColor(cls),
         bc=ENEMIES[ids[0]].color,seen=(META.bintSeen||{})[key+'_'+cls],short=bintMode()==='short'||seen,pet=cls==='hunter'?curPet():null,
         bname=D.name||ENEMIES[ids[0]].name,imgs=ids.map(id=>EIMG[id]||''),cname=CHARS[cls].name.toUpperCase();
