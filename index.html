@@ -7,6 +7,8 @@
 <meta name="description" content="CYBERCITY OVERDRIVE : un roguelike de cartes néon-cyberpunk gratuit. Choisis ta classe, pirate le réseau, affronte les boss de la mégapole. Jouable dans le navigateur, hors ligne et sur Android.">
 <meta name="theme-color" content="#05060f">
 <link rel="canonical" href="https://cybercity-overdrive.fr/">
+<link rel="alternate" hreflang="fr" href="https://cybercity-overdrive.fr/">
+<link rel="alternate" hreflang="en" href="https://cybercity-overdrive.fr/en.html">
 <link rel="icon" href="img/icone.png">
 <link rel="apple-touch-icon" href="jouer/icons/apple-touch-icon.png">
 <meta property="og:type" content="website">
@@ -167,6 +169,9 @@ body[data-view=home] .heroart{height:min(58svh,480px)}
 }
 @media(max-width:860px) and (max-height:760px){body[data-view=home] .hero .lead{display:none}body[data-view=home] .heroart{height:clamp(130px,calc(100svh - 400px),300px)}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+.nav .lgsw{order:2;margin-left:12px;font:700 12px Orbitron,sans-serif;letter-spacing:2px;color:var(--dim);text-decoration:none;border:1px solid var(--line);border-radius:6px;padding:6px 9px;white-space:nowrap}
+.nav .lgsw b{color:var(--cyan)}.nav .lgsw:hover{color:var(--txt);border-color:var(--cyan)}
+@media(max-width:760px){.nav .lgsw{margin-left:auto}}
 </style>
 </head>
 <body data-view="home">
@@ -177,6 +182,7 @@ body[data-view=home] .heroart{height:min(58svh,480px)}
     <nav aria-label="Sections">
       <a href="#jeu">Le jeu</a><a href="#classes">Classes</a><a href="#bestiaire">Bestiaire</a><a href="#boss">Boss</a><a href="#installer" class="inst-link">Installer</a>
     </nav>
+    <a class="lgsw" href="en.html" hreflang="en" lang="en" aria-label="English version"><b>FR</b> · EN</a>
   </div>
 </header>
 
@@ -209,7 +215,7 @@ body[data-view=home] .heroart{height:min(58svh,480px)}
           <a class="btn play" href="jouer/">▶ JOUER</a>
           <a class="btn ghost inst-link" href="#installer">INSTALLER L'APP</a>
         </div>
-        <p class="meta">Version <b>0.98.8</b> · Jouable hors ligne · Sans pub</p>
+        <p class="meta">Version <b>0.99.0</b> · Jouable hors ligne · Sans pub</p>
       </div>
       <div class="heroart" aria-hidden="true">
         <img class="h2" src="img/class-merc.webp" alt="" width="520" height="520">
@@ -313,7 +319,7 @@ body[data-view=home] .heroart{height:min(58svh,480px)}
 
 <footer>
   <div class="wrap">
-    <span>© 2026 CYBERCITY OVERDRIVE · v0.98.8</span>
+    <span>© 2026 CYBERCITY OVERDRIVE · v0.99.0</span>
     <span><a href="jouer/">Jouer</a><span class="inst-link"> · <a href="#installer">Installer</a></span> · <a href="#">Accueil</a></span>
   </div>
 </footer>
@@ -337,5 +343,6 @@ body[data-view=home] .heroart{height:min(58svh,480px)}
   els.forEach(function(e){io.observe(e)});
 })();
 </script>
+<script>document.querySelectorAll('a[href^="jouer/"]').forEach(function(a){a.addEventListener('click',function(){try{localStorage.setItem('cco_lang','fr')}catch(e){}})});</script>
 </body>
 </html>
