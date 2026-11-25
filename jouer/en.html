@@ -582,6 +582,116 @@ body.hitstop #app{filter:drop-shadow(3px 0 0 rgba(255,43,214,.75)) drop-shadow(-
 .story .stmeta b{font:600 13px 'Exo 2',sans-serif;color:var(--text)}
 
 .hch .hfl{white-space:nowrap}
+
+/* v0.99.4 : plateau de l'acte */
+.board{width:min(420px,100%);margin:6px auto 2px;border:1px solid color-mix(in srgb,var(--ac) 40%,transparent);border-radius:14px;background:radial-gradient(ellipse at 50% 0%,color-mix(in srgb,var(--ac) 14%,#060814),#05060f 75%);box-shadow:0 0 22px color-mix(in srgb,var(--ac) 18%,transparent) inset}
+.board svg{display:block;width:100%;height:auto}
+.board .bdcity rect{fill:color-mix(in srgb,var(--ac) 10%,#05060f);stroke:color-mix(in srgb,var(--ac) 25%,transparent);stroke-width:.6}
+.board .bdl{fill:none;stroke:#ffffff22;stroke-width:3;stroke-dasharray:5 6;stroke-linecap:round}
+.board .bdl.on{stroke:var(--ac);stroke-dasharray:none;filter:drop-shadow(0 0 4px var(--ac))}
+.board .bdt path{fill:#070a18;stroke:var(--c);stroke-width:2.2}
+.board .bdt text{fill:var(--c);font:700 15px 'Exo 2',sans-serif;text-anchor:middle}
+.board .bdt .bdn{font:700 8px Orbitron,sans-serif;fill:#ffffff55}
+.board .bdt.done path{fill:color-mix(in srgb,var(--c) 22%,#070a18);filter:drop-shadow(0 0 5px var(--c))}
+.board .bdt.fut text{fill:#ffffff40}
+.board .bdt.cur path{stroke-width:3;animation:bdpulse 1.3s ease-in-out infinite}
+.board .bdt.boss path{stroke-width:3;fill:color-mix(in srgb,var(--c) 18%,#070a18);filter:drop-shadow(0 0 8px var(--c))}
+.board .bdt.boss text{font-size:24px}.board .bdt.boss .bdcap{font:900 10px Orbitron,sans-serif;letter-spacing:3px;fill:var(--c)}
+.board .bdt.boss image{opacity:.9}
+.board .bdtr{fill:#05060f;stroke-width:2.5;filter:drop-shadow(0 0 6px currentColor)}
+@keyframes bdpulse{0%,100%{filter:drop-shadow(0 0 3px var(--c))}50%{filter:drop-shadow(0 0 12px var(--c))}}
+/* v0.99.4 : animation de récompense */
+#rwfx{position:fixed;inset:0;z-index:8500;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:auto;overflow:hidden;cursor:pointer}
+#rwfx .rwbg{position:absolute;inset:0;background:radial-gradient(circle at 50% 45%,color-mix(in srgb,var(--k) 22%,#05060f) 0,#05060fee 55%,#05060f 100%);animation:rwfade .35s ease-out}
+#rwfx .rwrays{position:absolute;left:50%;top:45%;width:900px;height:900px;margin:-450px 0 0 -450px;background:repeating-conic-gradient(from 0deg,color-mix(in srgb,var(--k) 30%,transparent) 0deg 6deg,transparent 6deg 22deg);opacity:0;animation:rwspin 6s linear infinite,rwrayin .9s ease-out forwards;-webkit-mask:radial-gradient(circle,#000 0,transparent 60%);mask:radial-gradient(circle,#000 0,transparent 60%)}
+#rwfx .rwcore{position:relative;width:110px;height:110px;display:flex;align-items:center;justify-content:center;margin-top:-6vh;animation:rwcharge .95s ease-in forwards}
+#rwfx .rwhex{position:absolute;inset:0;clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:linear-gradient(160deg,color-mix(in srgb,var(--k) 60%,#fff 10%),color-mix(in srgb,var(--k) 25%,#05060f));box-shadow:0 0 40px var(--k)}
+#rwfx .rwhex::after{content:'';position:absolute;inset:6px;clip-path:inherit;background:#070a18}
+#rwfx .rwico{position:relative;font:900 42px Orbitron,sans-serif;color:var(--k);text-shadow:0 0 18px var(--k)}
+#rwfx .rwsp{position:absolute;left:50%;top:calc(45% - 6vh + 55px)}
+#rwfx .rwsp i{position:absolute;width:6px;height:6px;margin:-3px;border-radius:50%;background:var(--k);box-shadow:0 0 8px var(--k);opacity:0}
+#rwfx .rwflash{position:absolute;inset:0;background:radial-gradient(circle at 50% 42%,#fff 0,color-mix(in srgb,var(--k) 70%,transparent) 20%,transparent 60%);opacity:0;pointer-events:none}
+#rwfx .rwtxt{position:relative;text-align:center;margin-top:26px;padding:0 20px;opacity:0;transform:translateY(12px)}
+#rwfx .rwkind{font:900 13px Orbitron,sans-serif;letter-spacing:5px;color:var(--k);text-shadow:0 0 12px var(--k)}
+#rwfx .rwtitle{font:900 24px Orbitron,sans-serif;letter-spacing:2px;color:#fff;margin-top:8px;text-shadow:0 0 16px var(--k)}
+#rwfx .rwsub{font:500 14px/1.45 'Exo 2',sans-serif;color:var(--text);margin-top:8px;max-width:340px}
+#rwfx.burst .rwcore{animation:rwpop .5s cubic-bezier(.2,1.6,.4,1) forwards}
+#rwfx.burst .rwflash{animation:rwflash .6s ease-out}
+#rwfx.burst .rwsp i{animation:rwspark var(--t) ease-out forwards}
+#rwfx.burst .rwtxt{transition:.4s .1s;opacity:1;transform:none}
+#rwfx .rwtap{position:absolute;bottom:calc(env(safe-area-inset-bottom,0px) + 9%);left:0;right:0;text-align:center;font:700 12px Orbitron,sans-serif;letter-spacing:3px;color:var(--k);opacity:0}
+#rwfx.burst .rwtap{animation:rwtap 1.6s .9s ease-in-out infinite}
+@keyframes rwtap{0%,100%{opacity:.35}50%{opacity:1}}
+#rwfx.short .rwcore{animation-duration:.45s}
+#rwfx.out{transition:opacity .3s;opacity:0}
+@keyframes rwfade{from{opacity:0}}
+@keyframes rwspin{to{transform:rotate(360deg)}}
+@keyframes rwrayin{to{opacity:1}}
+@keyframes rwcharge{0%{transform:scale(.3) rotate(-30deg);opacity:0}60%{opacity:1}80%{transform:scale(.92) rotate(0)}90%{transform:scale(.86) rotate(2deg)}100%{transform:scale(.8) rotate(-2deg)}}
+@keyframes rwpop{0%{transform:scale(.8)}60%{transform:scale(1.35)}100%{transform:scale(1.15)}}
+@keyframes rwflash{0%{opacity:1}100%{opacity:0}}
+@keyframes rwspark{0%{opacity:1;transform:rotate(var(--a)) translateX(0)}100%{opacity:0;transform:rotate(var(--a)) translateX(var(--d))}}
+.rwin .loot-card{animation:rwcard .7s cubic-bezier(.2,1.3,.4,1) both;position:relative;overflow:hidden}
+.rwin .loot-card::after{content:'';position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(100deg,transparent,#ffffff40,transparent);animation:rwshine 1.1s .5s ease-out both}
+.rwbtns{animation:rwfade .4s .6s both}
+@keyframes rwcard{0%{transform:perspective(600px) rotateY(80deg) scale(.6);opacity:0}100%{transform:none;opacity:1}}
+@keyframes rwshine{to{left:120%}}
+.rwdeal{animation:rwdeal .5s cubic-bezier(.2,1.3,.4,1) both}
+@keyframes rwdeal{from{transform:translateY(40px) scale(.9);opacity:0}}
+.opt.tcarry{--c:var(--green)}
+.opt.tcarry .slot{color:var(--green)}
+/* Évolution : niveau suivant */
+.evonext{margin-top:3px;font-size:12px;color:var(--dim)}.evonext b{color:var(--text)}.evodelta{color:var(--green);font-weight:700}
+@media (prefers-reduced-motion:reduce){#rwfx .rwrays{animation:none;opacity:.6}.rwdeal,.rwin .loot-card{animation:none}}
+
+/* v0.99.4 : carte verticale à embranchements */
+.vmap{width:min(420px,100%);height:min(50vh,470px);margin:6px auto 2px;overflow-y:auto;overscroll-behavior:contain;border:1px solid color-mix(in srgb,var(--ac) 40%,transparent);border-radius:14px;background:radial-gradient(ellipse at 50% 0%,color-mix(in srgb,var(--ac) 16%,#060814),#05060f 70%);box-shadow:0 0 22px color-mix(in srgb,var(--ac) 18%,transparent) inset;scrollbar-width:thin}
+.vmap svg{display:block;width:100%}
+.vmap .vl{stroke:#ffffff1f;stroke-width:2;stroke-dasharray:4 5;fill:none}
+.vmap .vl.on{stroke:var(--ac);stroke-width:3.2;stroke-dasharray:none;filter:drop-shadow(0 0 4px var(--ac))}
+.vmap .vl.go{stroke:var(--cyan);stroke-width:2.6;stroke-dasharray:6 5;animation:vdash 1s linear infinite}
+@keyframes vdash{to{stroke-dashoffset:-22}}
+.vmap .vn circle{fill:#070a18;stroke:var(--c);stroke-width:2}
+.vmap .vn text{fill:var(--c);font:700 15px 'Exo 2',sans-serif;text-anchor:middle;pointer-events:none}
+.vmap .vn.fut,.vmap .vn.off{opacity:.55}
+.vmap .vn.past{opacity:.28}
+.vmap .vn.done circle{fill:color-mix(in srgb,var(--c) 25%,#070a18);filter:drop-shadow(0 0 5px var(--c))}
+.vmap .vn.reach{cursor:pointer}
+.vmap .vn.reach circle{stroke-width:3;fill:color-mix(in srgb,var(--c) 14%,#070a18);animation:vpulse 1.2s ease-in-out infinite}
+.vmap .vn.reach:hover circle{fill:color-mix(in srgb,var(--c) 30%,#070a18)}
+.vmap .vn.boss circle{stroke-width:3;fill:color-mix(in srgb,var(--c) 18%,#070a18);filter:drop-shadow(0 0 9px var(--c))}
+.vmap .vn.boss .vcap{font:900 9px Orbitron,sans-serif;letter-spacing:2px;fill:var(--c)}
+.vmap .vtok circle{fill:#05060f;stroke-width:2.5;filter:drop-shadow(0 0 6px currentColor)}
+@keyframes vpulse{0%,100%{filter:drop-shadow(0 0 3px var(--c))}50%{filter:drop-shadow(0 0 12px var(--c))}}
+.vmap{height:max(260px,calc(100dvh - 400px))!important;margin-top:4px!important}
+.vstep{font:500 13px 'Exo 2',sans-serif;color:var(--dim);margin-top:2px}.vstep b{color:var(--text)}
+#screen h2+.dim{font-size:12px}
+.vleg{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:8px 0 4px}
+.vlg{font:600 13px 'Exo 2',sans-serif;color:var(--text);background:#0a0e20;border:1px solid color-mix(in srgb,var(--c) 55%,transparent);border-radius:16px;padding:5px 11px;cursor:pointer}
+.vlg b{color:var(--c);margin-right:5px;font-size:14px}.vlg:active{background:color-mix(in srgb,var(--c) 20%,#0a0e20)}
+.vmap .vn.sel circle{stroke:#fff;stroke-width:3.5;fill:color-mix(in srgb,var(--c) 35%,#070a18)}
+.vsel{width:min(420px,100%);margin:4px auto 0;min-height:54px}
+.vsel .node{width:100%;margin:0}
+.vhint{font:500 14px 'Exo 2',sans-serif;color:var(--dim);text-align:center;padding:14px 0}
+.vnext{font:500 13px 'Exo 2',sans-serif;color:var(--dim);text-align:center;margin-top:6px}.vnext b{font-size:16px;margin:0 2px}
+.vinfo{border:1px solid var(--c);border-radius:12px;padding:10px 12px;background:color-mix(in srgb,var(--c) 8%,#0a0e20);text-align:left}
+.vinfo b{display:block;color:var(--c);font:700 13px Orbitron,sans-serif;letter-spacing:1px;margin-bottom:4px}.vinfo span{font:400 14px/1.45 'Exo 2',sans-serif;color:var(--text)}
+.chars.starter .char .portrait svg{width:min(230px,60vw)!important;height:min(230px,60vw)!important}
+.chars.starter .char h3,.chars.starter .char .hcl2,.chars.starter .char .role{text-align:center}
+
+/* v0.99.4 : intro — les 4 agents en grand, de biais, à moitié sortis de l'écran, tournés vers la cité au loin */
+.ci-horizon{position:absolute;left:0;right:0;top:30%;height:36%;background:radial-gradient(ellipse 60% 55% at 50% 62%,color-mix(in srgb,#fff 18%,var(--magenta) 55%) 0,color-mix(in srgb,var(--magenta) 30%,transparent) 40%,transparent 72%);mix-blend-mode:screen;pointer-events:none;animation:cihz 4s ease-in-out infinite alternate}
+@keyframes cihz{from{opacity:.75}to{opacity:1}}
+.ci-backs{position:absolute;top:0;bottom:0;left:50%;width:min(100%,62vh);transform:translateX(-50%);overflow:hidden;pointer-events:none}
+.ci-backs .cbk{position:absolute;bottom:0;filter:brightness(.88) drop-shadow(0 0 2px var(--rim)) drop-shadow(0 0 12px color-mix(in srgb,var(--magenta) 50%,transparent));animation:cbkin 1.2s cubic-bezier(.2,.9,.3,1) both}
+.ci-backs .cbk.o{width:84%;z-index:2}
+.ci-backs .cbk.i{width:66%;z-index:1;filter:brightness(.74) saturate(.9) drop-shadow(0 0 2px var(--rim)) drop-shadow(0 0 10px color-mix(in srgb,var(--magenta) 45%,transparent))}
+.ci-backs .cbk.o.l{left:-32%;transform:translateY(33%) rotate(3deg)}
+.ci-backs .cbk.i.l{left:2%;transform:translateY(14%) rotate(2deg)}
+.ci-backs .cbk.i.r{right:2%;transform:translateY(14%) rotate(-2deg) scaleX(-1)}
+.ci-backs .cbk.o.r{right:-32%;transform:translateY(33%) rotate(-3deg) scaleX(-1)}
+@keyframes cbkin{from{opacity:0;margin-bottom:-30%}}
+.stline{color:var(--text);font-size:13px;margin:2px 0 6px}
 </style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
 <!-- ============ CARTES (64x64) ============ -->
@@ -2366,8 +2476,27 @@ const TALENTS={
   net_prop:{cls:'net',name:'Propagation',desc:'Fight start: +3 Virus on all (stacks)',mods:{startVirus:3,hack:1}},
   merc_plate:{cls:'merc',name:'Heavy plating+',desc:'+6 starting Block, +10 max HP',mods:{startBlock:6,hp:10}},
   techno_swarm:{cls:'techno',name:'Pocket swarm',desc:'Start each fight with 1 more drone',mods:{drones:1}},
-  hunter_alpha:{cls:'hunter',name:'Alpha',desc:'Your companion: +3 damage and +8 max HP',mods:{petAtk:3,petHp:8}}
+  hunter_alpha:{cls:'hunter',name:'Alpha',desc:'Your companion: +3 damage and +8 max HP',mods:{petAtk:3,petHp:8}},
+  /* v0.99.4 : persistance — ce que tu gardes d'un combat à l'autre, et d'un acte à l'autre */
+  carry_blk:{name:'Residual Block',desc:'End of fight: keep 30% of your remaining Block for the next fight (25 max).',mods:{},carry:1},
+  carry_vir:{name:'Latent charge',desc:'End of fight: 25% of the Virus left on enemies is stored and infects every enemy in the next fight (15 max).',mods:{},carry:1},
+  grow_str:{name:'Muscle memory',desc:'Each elite or boss defeated: +1 Strength at the start of every fight, for the whole run (5 max).',mods:{},carry:1},
+  net_latent:{cls:'net',name:'Chronic infection',desc:'End of fight: 50% of the Virus left on enemies infects the next fight (30 max). Replaces Latent charge.',mods:{},carry:1},
+  merc_bastion:{cls:'merc',name:'Permanent bastion',desc:'End of fight: keep 50% of your remaining Block for the next fight (40 max). Replaces Residual Block.',mods:{},carry:1},
+  techno_hive:{cls:'techno',name:'Persistent swarm',desc:'Your drones still active at the end of a fight stay with you (4 max, 6 drones total).',mods:{},carry:1},
+  hunter_pack:{cls:'hunter',name:'Pack instinct',desc:'Each fight won: your companion gains +1 damage for the rest of the run (8 max).',mods:{},carry:1}
 };
+/* stock de persistance du run */
+function carryT(){G.carry=G.carry||{blk:0,vir:0,dr:0,pg:0,str:0};return G.carry}
+const hasT=id=>G&&G.talents&&G.talents.includes(id);
+function carryStore(node){
+  const C=carryT(),p=G.p;
+  const kb=hasT('merc_bastion')?[.5,40]:hasT('carry_blk')?[.3,25]:null;C.blk=kb?Math.min(kb[1],Math.floor((p.block||0)*kb[0])):0;
+  const vt=G.enemies.reduce((a,e)=>a+(e.virus||0),0),kv=hasT('net_latent')?[.5,30]:hasT('carry_vir')?[.25,15]:null;C.vir=kv?Math.min(kv[1],Math.floor(vt*kv[0])):0;
+  C.dr=hasT('techno_hive')?Math.min(4,p.drones||0):0;
+  if(hasT('hunter_pack'))C.pg=Math.min(8,(C.pg||0)+1);
+  if(hasT('grow_str')&&node&&(node.type==='elite'||node.type==='boss'))C.str=Math.min(5,(C.str||0)+1);
+}
 
 const ENEMIES={
   drone:{name:'Security drone',hp:14,color:'var(--cyan)',svg:'<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="26"/><circle cx="50" cy="50" r="9" fill="currentColor"/><path d="M24 50H8M92 50H76M50 24V8M50 92V76"/></svg>',
@@ -2442,13 +2571,14 @@ const ACT_TAG=['The neons welcome you… and so do the guards.','The giant facto
 const ACT_COL=['var(--magenta)','var(--orange)','var(--red)'];
 
 const NODE={
-  combat:{icon:'⚔',name:'FIGHT',rew:'Reward: 1 card of your choice + credits'},
-  data:{icon:'◈',name:'DATA RAID',rew:'Reward: lots of credits (no card)'},
-  elite:{icon:'☠',name:'ELITE',rew:'Reward: 1 implant of your choice + credits'},
-  rest:{icon:'✚',name:'WORKSHOP',rew:'Heal 35% of max HP, or purge a card'},
-  shop:{icon:'₵',name:'BLACK MARKET',rew:'Buy cards, implants, purge'},
-  event:{icon:'?',name:'UNKNOWN SIGNAL',rew:'Random event'},
-  malus:{icon:'⚠',name:'CORRUPTED SHORTCUT',rew:'Skip the fight, but suffer a penalty (HP, credits or curse)'},
+  combat:{icon:'⚔',name:'FIGHT',rew:'Reward: 1 card of your choice + credits',desc:'Standard fight: a card of your choice and credits.'},
+  data:{icon:'◈',name:'DATA RAID',rew:'Reward: lots of credits (no card)',desc:'A fight that pays a lot of credits, but no card.'},
+  elite:{icon:'☠',name:'ELITE',rew:'Reward: 1 implant of your choice + credits',desc:'A hard fight now, but an implant of your choice, and behind it, always a reward: black market, workshop or data cache.'},
+  rest:{icon:'✚',name:'WORKSHOP',rew:'Heal 35% of max HP, or purge a card',desc:'Heal part of your HP, or purge a card from your deck. Mid-act, it can only be reached after an elite.'},
+  shop:{icon:'₵',name:'BLACK MARKET',rew:'Buy cards, implants, purge',desc:'Upgrade your weapon, heal, buy bonuses, an implant or a purge. Mid-act, it can only be reached after an elite.'},
+  event:{icon:'?',name:'UNKNOWN SIGNAL',rew:'Random event',desc:'Random event: a choice to make, sometimes a rival agent to challenge.'},
+  malus:{icon:'⚠',name:'CORRUPTED SHORTCUT',rew:'Skip the fight, but suffer a penalty (HP, credits or curse)',desc:'No fight, but a random penalty: lost HP, lost credits or a curse in your deck.'},
+  cache:{icon:'◆',name:'DATA CACHE',rew:'Reward with no fight: an uncommon or rare card of your choice + credits',desc:'Reward with no fight, hidden behind an elite: an uncommon or rare card of your choice and credits.'},
   boss:{icon:'♛',name:'BOSS',rew:''}
 };
 
@@ -2465,6 +2595,7 @@ function S(){
   G.talents.forEach(id=>add(TALENTS[id].mods));add(resMods());
   Object.values(G.impl).forEach(id=>id&&add(IMPL[id].mods));
   t.startBlock+=3*t.def; /* v6.0 : chaque point de Défense = +3 blindage au début du combat */
+  if(G.carry&&G.carry.pg)t.petAtk+=G.carry.pg;
   return t;
 }
 function recalc(){
@@ -2482,6 +2613,7 @@ function newRun(cls,elite){
      p:{hp:0,max:0,block:0,energy:3,max_e:3,str:0,drones:0,dbonus:0},draw:[],discard:[],hand:[],enemies:[],sel:null,busy:true,node:null,queue:[],gain:''};
   if(elite>=4)G.deck.push('corruption');
   G.wid=wSel(cls);G.weapon=Math.min(WMAX,wtier(cls,G.wid));
+  G.carry={blk:0,vir:0,dr:0,pg:0,str:0};G.path=[];
   recalc();
   G.map=genMap(0);
   $('#modal').innerHTML='';
@@ -2627,14 +2759,18 @@ function rareChance(cls){const W=rarW(),pool=poolFor(cls);const tot=pool.reduce(
 const cxValue=id=>(CXV[CARDS[id].rarity]||0)+(G&&G.elite||0);
 /* ---------- ÉVOLUTION DU PROFIL (v6.0) ---------- */
 const PSTAT={
-  pow:{n:'Power',c:'--red',max:12,d:'+1 damage on every direct hit of your cards'},
-  hack:{n:'Hacking',c:'--orange',max:12,d:'+1 Virus each time you apply some'},
-  def:{n:'Defense',c:'--cyan',max:12,d:'+3 Block at the start of each fight'},
-  hp:{n:'HP',c:'--green',max:12,d:'+6 max HP'}
+  pow:{n:'Power',c:'--red',max:12,k:14,d:'Extra damage on every direct hit of your cards'},
+  hack:{n:'Hacking',c:'--orange',max:12,k:14,d:'Extra Virus every time you apply some'},
+  def:{n:'Defense',c:'--cyan',max:12,k:18,d:'Block at the start of every fight'},
+  hp:{n:'HP',c:'--green',max:12,k:18,d:'Extra max HP'}
 };
+/* v0.99.4 : rendements croissants — chaque niveau rapporte plus que le précédent (coefficient 1 + niveau / k) */
+const pcv=(k,l)=>Math.round(l*(1+l/PSTAT[k].k));
+const pVal=(k,l)=>{const v=pcv(k,l);return k==='pow'?v:k==='hack'?v:k==='def'?3*v:6*v};
+const pTxt=(k,l)=>{const v=pVal(k,l);return k==='pow'?'+'+v+' damage'+(v>1?'s':''):k==='hack'?'+'+v+' Virus':k==='def'?'+'+v+' Block':'+'+v+' HP'};
 const pCost=l=>l<8?25+15*l:Math.round((25+15*l)*Math.pow(1.35,l-7)); /* v0.93.0 : au-delà du niveau 8, coût géométrique (plafond doux) */
 const plevels=()=>Object.values(META.lvl||{}).reduce((a,b)=>a+b,0);
-function profileMods(){const L=META.lvl||{};return {pow:L.pow||0,hack:2*(L.hack||0),def:L.def||0,hp:6*(L.hp||0)}}
+function profileMods(){const L=META.lvl||{};return {pow:pcv('pow',L.pow||0),hack:2*pcv('hack',L.hack||0),def:pcv('def',L.def||0),hp:6*pcv('hp',L.hp||0)}}
 /* talent de classe améliorable (3 rangs) avec les fragments de boss */
 const TRANK={
   net:{n:'Root access',r:['+3 starting Virus on all enemies','+3 starting Virus (total +6)','+3 starting Virus (total +9)','+3 starting Virus (total +12)'],mods:r=>({startVirus:3*r})},
@@ -3059,10 +3195,10 @@ function starterScreen(){
     <div class="srow"><span>DEFENSE</span><b class="pips">${pips(c.stats.def)}</b></div>
     <div class="tal"><b>TALENT: ${c.talent[0]}</b><br>${c.talent[1]}</div>
     <div class="wpn"><b>WEAPON: ${w.name}</b> (${w.type})<br>${w.desc(1)}</div>
-    <div class="role" style="margin-top:8px">${c.hint}</div></div></div>`}).join('');
+    </div></div>`}).join('');
   screen(`<h1 class="logo">CYBERCITY<span>OVERDRIVE</span></h1><h2>CHOOSE YOUR STARTING CLASS</h2>
-    <p>It is playable right away. The other two unlock as you play: the first after 3 fights won, the second after defeating a boss. The CYBERHUNTER, hero class, arrives after 2 bosses.</p>
-    <div class="chars">${cards}</div>`);
+    <p class="stline">Unlock the other classes by playing.</p>
+    <div class="chars starter">${cards}</div>`);
   $('#scene').classList.add('menu');
 }
 A.pickStarter=id=>{if(!BASE.includes(id)||!PROF.cur)return;META.starter=id;saveMeta();hubSel=id;toast('STARTING CLASS',CHARS[id].name+' is ready for their first run.');hub()};
@@ -3082,7 +3218,7 @@ function evoWeapon(c,w){
 A.evo=()=>{
   if(!META)return;setOpts(false);
   const stats=Object.entries(PSTAT).map(([k,p])=>{const l=META.lvl[k]||0,max=l>=p.max,cost=pCost(l);
-    return `<div class="evoitem"><div class="evoh"><b style="color:var(${p.c})">${p.n.toUpperCase()}</b> ${evoPips(l,p.max,p.c)}</div><div class="evod">${p.d}${l?` · currently <b>${k==='pow'?'+'+l+' damage'+(l>1?'s':''):k==='hack'?'+'+l+' Virus':k==='def'?'+'+3*l+' blindage':'+'+6*l+' HP'}</b>`:''}</div>
+    return `<div class="evoitem"><div class="evoh"><b style="color:var(${p.c})">${p.n.toUpperCase()}</b> ${evoPips(l,p.max,p.c)}</div><div class="evod">${p.d}${l?` · currently <b>${pTxt(k,l)}</b>`:''}${max?'':`<div class="evonext">Level ${l+1}: <b>${pTxt(k,l+1)}</b> <span class="evodelta">(+${pVal(k,l+1)-pVal(k,l)})</span></div>`}</div>
       <div class="evoact">${max?'<span class="dim">Max level</span>':`<button class="btn sm g" data-a="evoStat" data-v="${k}" ${META.xp<cost?'disabled':''}>Upgrade · ${cost} XP</button>`}</div></div>`}).join('');
   const cls=Object.keys(CHARS).map(c=>{const C=CHARS[c],un=unlocked(c),r=trank(c),T=TRANK[c];
     if(!un)return `<details class="gdr cat" data-key="${c}" style="--k:${C.color}"><summary><span>${C.name}</span><span class="gdh">locked · ${unlockHint(c)}</span><span class="gchev" aria-hidden="true">›</span></summary><div class="gdb"><p class="dim">Unlock this class to upgrade it.</p></div></details>`;
@@ -3220,7 +3356,7 @@ function mkNode(type,s){
 }
 function G_act(){return genAct}
 let genAct=0;
-const NS=8; /* destinations par acte, le boss vient ensuite */
+const NS=9; /* v0.99.4 : 9 destinations par acte, le boss vient ensuite (chemin de 10 étapes) */
 const FIGHTS=['combat','data','elite','boss'];
 /* Ligne de chemin selon ce que le joueur a déjà fait dans l'acte :
    - après une étape sans combat, l'étape suivante ne propose que des combats (sauf la dernière) ;
@@ -3248,21 +3384,111 @@ function buildRow(act,s,used,calm){
   }
   return shuffle([...new Set(ch)]).map(t=>mkNode(t,s));
 }
+/* v0.99.4 : carte à embranchements. 4 couloirs, 5 trajets aléatoires qui ne se croisent pas ;
+   chaque lieu mène à 1 à 3 lieux de l'étage suivant ; dernier étage : atelier ou marché noir avant le boss. */
+const MAPW=4;
 function genMap(act){
-  const rows=[buildRow(act,0,[],false)];
-  for(let s=1;s<NS;s++)rows.push(null);
-  rows.push([{type:'boss',enemies:pick(BOSSES[act]).slice()}]);
-  G&&(G.used=[],G.calm=false);
-  return rows;
+  genAct=act;
+  /* v0.99.4 : carte à carrefours. Étages 2 et 5 = carrefours (2 lieux) où tous les chemins se rejoignent ;
+     juste après chacun, le choix entre une élite (plus dur, récompense derrière) et une voie plus simple.
+     Les liens relient les lieux qui se chevauchent d'un étage à l'autre : aucun croisement, et on peut toujours bifurquer. */
+  const HUB=[2,5];
+  const XR=4; /* étape 5 : croisement, marché noir au centre relié à tous les chemins */
+  const cnt=Array.from({length:NS},(_,r)=>r===0?3:HUB.includes(r)?2:r===XR?3:r===NS-1?2+(Math.random()<.5?1:0):3+(Math.random()<.55?1:0));
+  const rows=cnt.map(n=>Array.from({length:n},(_,i)=>({c:(i+.5)/n*MAPW-.5})));
+  const ov=(i,n,j,m)=>Math.min((i+1)/n,(j+1)/m)-Math.max(i/n,j/m)>1e-6;
+  rows.forEach((row,r)=>{if(r===NS-1){row.forEach(n=>n.next=[0]);return}const m=rows[r+1].length;row.forEach((n,i)=>{n.next=rows[r+1].map((_,j)=>ov(i,row.length,j,m)?j:-1).filter(j=>j>=0)})});
+  rows[XR-1].forEach(n=>{if(!n.next.includes(1))n.next.push(1);n.next.sort((x,y)=>x-y)});rows[XR][1].fixed='shop';
+  /* types de lieux */
+  const W={combat:50,event:26,data:12,elite:9,malus:3};
+  const draw=()=>{let t=Math.random()*100;for(const k in W){t-=W[k];if(t<0)return k}return 'combat'};
+  rows.forEach((row,r)=>row.forEach(n=>{let t;
+    if(r===0)t=Math.random()<.8?'combat':'data';
+    else if(r===NS-1)t=Math.random()<.6?'rest':'shop';
+    else if(n.fixed)t=n.fixed;
+    else if(HUB.includes(r))t=Math.random()<.55?'combat':'event';
+    else{t=draw();if(r<2&&(t==='elite'||t==='malus'))t='combat';if((r>NS-3||HUB.includes(r+1))&&t==='elite')t='combat'}
+    n.type=t}));
+  /* juste après chaque carrefour : chaque branche propose une élite ET une voie plus simple */
+  HUB.forEach(h=>{rows[h].forEach(hn=>{const kids=hn.next.map(j=>rows[h+1][j]);if(kids.length<2)return;
+    kids.forEach(k=>{if(k.type==='malus')k.type='combat'});if(!kids.some(k=>k.type==='elite'))pick(kids).type='elite'});
+    /* si une branche n'a plus que des élites, on adoucit un lieu dont aucune autre branche n'a besoin */
+    rows[h].forEach(hn=>{const kids=hn.next.map(j=>rows[h+1][j]);if(!kids.every(k=>k.type==='elite'))return;
+      const need=k=>rows[h].some(o=>o!==hn&&o.next.map(j=>rows[h+1][j]).filter(x=>x.type==='elite').length===1&&o.next.map(j=>rows[h+1][j]).includes(k));
+      const k=kids.find(x=>!need(x))||kids[kids.length-1];k.type=Math.random()<.5?'combat':'event'})});
+  /* après une élite : au moins une récompense (marché noir, atelier ou cache) ; les récompenses n'existent qu'après une élite */
+  const REW=['shop','rest','cache'];
+  rows.forEach((row,r)=>{if(r>=NS-2)return;row.forEach(n=>{if(n.type!=='elite')return;
+    const kids=n.next.map(j=>rows[r+1][j]).filter(m=>m.type!=='elite'&&!HUB.includes(r+1));if(!kids.length)return;
+    if(!kids.some(m=>REW.includes(m.type)))pick(kids).type=pick(REW)})});
+  rows.forEach((row,r)=>{if(r===0||r>=NS-1)return;row.forEach((n,i)=>{if(!REW.includes(n.type)||n.fixed)return;
+    const par=rows[r-1].filter(m=>m.next.includes(i));if(!par.some(m=>m.type==='elite'))n.type=Math.random()<.5?'event':'data'})});
+  rows[XR].forEach(n=>{if(!n.fixed&&n.type==='shop')n.type=Math.random()<.5?'rest':'cache'});
+  /* pas deux élites ou raccourcis d'affilée */
+  rows.forEach((row,r)=>{if(r===0)return;row.forEach((n,i)=>{const par=rows[r-1].filter(m=>m.next.includes(i));
+    if(['elite','malus'].includes(n.type)&&par.some(m=>m.type===n.type)&&!HUB.includes(r-1))n.type='combat'})});
+  const out=rows.map((row,r)=>row.map(n=>Object.assign(mkNode(n.type,r),{c:n.c,next:n.next})));
+  out.push([{type:'boss',enemies:pick(BOSSES[act]).slice(),c:1.5,next:[]}]);
+  out.v2=1;
+  G&&(G.used=[],G.calm=false,G.pos=null);
+  return out;
 }
+function mapIsV2(m){return !!(m&&m.length===NS+1&&m.slice(0,NS).every(r=>Array.isArray(r)&&r.every(n=>n&&n.next)))}
 function ensureRow(){
-  if(!G.map[G.step])G.map[G.step]=buildRow(G.act,G.step,G.used||[],!!G.calm);
+  if(!mapIsV2(G.map)){const st=Math.min(G.step,NS);const bossRow=G.map&&G.map[G.map.length-1];G.map=genMap(G.act);if(bossRow&&bossRow[0]&&bossRow[0].type==='boss')G.map[NS]=[Object.assign({},bossRow[0],{c:1.5,next:[]})];G.step=st;G.pos=null;G.path=[]}
+}
+/* lieux accessibles depuis la position actuelle */
+function reachable(){
+  if(G.step>=NS)return [0];
+  const row=G.map[G.step]||[];if(G.step===0||G.pos==null)return row.map((_,i)=>i);
+  const prev=G.map[G.step-1]&&G.map[G.step-1][G.pos];return prev&&prev.next?prev.next.slice():row.map((_,i)=>i);
 }
 function nodeHTML(n,i){
   const t=NODE[n.type];let sub='';
   if(n.enemies){const cnt={};n.enemies.forEach(id=>cnt[id]=(cnt[id]||0)+1);sub=(n.enemies.length>1&&n.type!=='boss'?`<b>${n.enemies.length} enemies</b> · `:'')+Object.entries(cnt).map(([id,c])=>ENEMIES[id].name+(c>1?' ×'+c:'')).join(' + ')}
   const rew=n.type==='boss'?"Reward: pick a LEGENDARY card (drawback) + talent":t.rew;
   return `<div class="node ${n.type}" data-a="pickNode" data-v="${i}"><div class="nicon">${t.icon}</div><div class="nname">${t.name}</div>${sub?`<div class="nsub">${sub}</div>`:''}<div class="nrew">${rew}</div></div>`;
+}
+/* v0.99.4 : le plateau de l'acte — 8 destinations en serpentin, puis le boss */
+const NODE_COL={cache:'#b06bff',combat:'var(--red)',data:'var(--yellow)',elite:'var(--magenta)',rest:'var(--green)',shop:'var(--cyan)',event:'#b9a7ff',malus:'var(--orange)',boss:'var(--magenta)'};
+/* sélection d'un lieu : détails, où il mène, puis « Y aller » */
+function mapSelHTML(){
+  const R=reachable();if(G.step>=NS)return nodeHTML(G.map[NS][0],0);
+  if(R.length===1)G.msel=R[0];
+  const i=G.msel;if(i==null||!R.includes(i))return `<div class="vhint">Tap a pulsing place on the map.</div>`;
+  const n=G.map[G.step][i],nx=(G.step<NS-1?n.next.map(j=>G.map[G.step+1][j]):[G.map[NS][0]]);
+  return nodeHTML(n,i)+`<div class="vnext">Tap the card to go there · leads next to: ${nx.map(m=>`<b style="color:${NODE_COL[m.type]}">${NODE[m.type].icon}</b>`).join(' ')}</div>`}
+A.mapSel=v=>{const i=+v;if(!reachable().includes(i))return;G.msel=i;G.mapKeep=1;keepScroll(()=>{const old=document.querySelector('#screen .vmap');const y=old?old.scrollTop:0;goMap();const nv=document.querySelector('#screen .vmap');if(nv)nv.scrollTop=y})};
+A.legInfo=k=>{const t=NODE[k];if(!t)return;const v=document.getElementById('vsel');if(!v)return;
+  v.innerHTML=`<div class="vinfo" style="--c:${NODE_COL[k]}"><b>${t.icon} ${t.name}</b><span>${t.desc||t.rew}</span></div>`;setTimeout(()=>{const e=document.getElementById('vsel');if(e&&e.querySelector('.vinfo'))e.innerHTML=mapSelHTML()},5000)};
+function mapLegend(){const LG='fight|elite|signal|raid|workshop|market|cache|shortcut'.split('|');
+  return `<div class="vleg">${['combat','elite','event','data','rest','shop','cache','malus'].map((k,i)=>`<button class="vlg" style="--c:${NODE_COL[k]}" data-a="legInfo" data-v="${k}"><b>${NODE[k].icon}</b>${LG[i]}</button>`).join('')}</div>`}
+function boardHTML(){
+  const ac=ACT_COL[G.act],cur=Math.max(0,Math.min(G.step,NS)),M=G.map,R=new Set(reachable());
+  const H=45+NS*76+60,X=c=>48+c*88,Y=r=>r===NS?48:H-48-r*76;
+  const jit=(r,c)=>((r*7+c*13)%9-4)*2.4;
+  const pos=(r,i)=>{const n=M[r][i];return [X(n.c)+(r===NS?0:jit(r,n.c)),Y(r)+(r===NS?0:jit(n.c,r)*.6)]};
+  const onPath=(r,i)=>G.path&&G.path[r]===i;
+  let lines='',nodes='';
+  for(let r=0;r<NS;r++)M[r].forEach((n,i)=>{const [x1,y1]=pos(r,i);(r===NS-1?[0]:n.next).forEach(j=>{const [x2,y2]=pos(r+1,j);
+    const lit=onPath(r,i)&&(r+1<cur?onPath(r+1,j):false),go=r===cur-1&&onPath(r,i)&&R.has(j);
+    lines+=`<path class="vl ${lit?'on':go?'go':''}" d="M${x1.toFixed(1)} ${y1.toFixed(1)}L${x2.toFixed(1)} ${y2.toFixed(1)}"/>`})});
+  for(let r=0;r<=NS;r++)M[r].forEach((n,i)=>{const [x,y]=pos(r,i),t=NODE[n.type],col=NODE_COL[n.type]||ac;
+    const st=r<cur?(onPath(r,i)?'done':'past'):r===cur?(R.has(i)?'reach':'off'):'fut';
+    const act=st==='reach'?` data-a="mapSel" data-v="${i}" role="button" aria-label="${t.name}"`:'';
+    if(r===NS){const ids=n.enemies,im=EIMG&&EIMG[ids[0]];
+      nodes+=`<g class="vn boss ${st}" style="--c:${ac}"${act}><circle cx="${x}" cy="${y}" r="30"/>${im?`<clipPath id="vbc"><circle cx="${x}" cy="${y}" r="27"/></clipPath><image href="${im}" x="${x-27}" y="${y-27}" width="54" height="54" clip-path="url(#vbc)" preserveAspectRatio="xMidYMid slice"/>`:`<text x="${x}" y="${y+8}">♛</text>`}<text class="vcap" x="${x}" y="${y+46}">BOSS · ${ids.map(id=>ENEMIES[id].name).join(' & ')}</text></g>`;return}
+    nodes+=`<g class="vn ${n.type} ${st}${G.msel===i&&r===cur?' sel':''}" style="--c:${col}"${act}><circle cx="${x}" cy="${y}" r="${st==='reach'?19:16}"/><text x="${x}" y="${y+5.5}">${t.icon}</text></g>`});
+  /* jeton de l'agent sur le dernier lieu visité */
+  let tok='';
+  if(cur>0&&G.pos!=null&&M[cur-1]&&M[cur-1][G.pos]){const [tx,ty]=pos(cur-1,G.pos),sk=curSkin(G.cls),im=skinImg(G.cls,sk);
+    let anim='';if(G.boardAt!=null&&G.boardAt<cur&&cur>=2&&G.path&&G.path[cur-2]!=null){const [fx,fy]=pos(cur-2,G.path[cur-2]);anim=`<animateTransform attributeName="transform" type="translate" from="${fx-24} ${fy-22}" to="${tx-24} ${ty-22}" dur=".8s" begin="0.2s" fill="freeze" calcMode="spline" keySplines=".5 0 .3 1" keyTimes="0;1"/>`}
+    tok=`<g class="vtok" transform="translate(${tx-24} ${ty-22})">${anim}<circle r="14" style="stroke:${clsColor(G.cls)}"/><clipPath id="vtk"><circle r="12"/></clipPath>${im?`<image href="${im.f}" x="-14" y="-16" width="28" height="28" clip-path="url(#vtk)"/>`:''}</g>`}
+  G.boardAt=cur;
+
+  return `<div class="vmap" style="--ac:${ac}" aria-label="Act map: step ${cur+1} of ${NS+1}"><svg viewBox="0 0 360 ${H}" style="height:${H}px">
+    <defs><pattern id="vgrid" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="currentColor" stroke-opacity=".06"/></pattern></defs>
+    <rect width="360" height="${H}" fill="url(#vgrid)" style="color:${ac}"/>${lines}${nodes}${tok}</svg></div>`;
 }
 function actCard(a){
   const old=document.getElementById('actcard');if(old)old.remove();
@@ -3279,15 +3505,15 @@ function goMap(){music('map');
   pushSnap();saveRun();setScene(G.act,[]);
   if(G.step===0&&G.actShown!==G.act){G.actShown=G.act;saveRun();setTimeout(()=>{if(G)actCard(G.act)},250)}
   $('#hinfo').innerHTML=`ACT <b>${G.act+1}</b> · ₵ <b>${G.credits}</b>`;
-  const dots=G.map.map((r,s)=>`<i class="sd ${s<G.step?'done':s===G.step?'cur':''} ${s===NS?'boss':''}"></i>`).join('');
-  screen(`${hudHTML()}<h2 style="color:${ACT_COL[G.act]};text-shadow:0 0 14px ${ACT_COL[G.act]}">ACT ${G.act+1} · ${ACT_NAMES[G.act]}</h2><div class="dim" style="font-style:italic">${ACT_TAG[G.act]}</div><div class="dots">${dots}</div>
-    ${G.elite?`<div class="eltag">ELITE PROTOCOL ${ROMAN[G.elite]}</div>`:''}
-    <p>${G.step===NS?'This act\'s boss is waiting for you. Get ready.':`Destination ${G.step+1}/${NS} — choose your path.`}<br><span style="color:var(--magenta)">Act boss: ${G.map[NS][0].enemies.map(id=>ENEMIES[id].name).join(' & ')}</span></p>
-    <div class="nodes">${G.map[G.step].map(nodeHTML).join('')}</div>`);
-  setTimeout(()=>{if(!G||!document.querySelector('#screen .nodes'))return;if(G.elite&&tip('elite'))return;tip('map')},G.step===0?3300:350);
+  const dots=boardHTML();
+  screen(`${hudHTML()}<h2 style="color:${ACT_COL[G.act]};text-shadow:0 0 14px ${ACT_COL[G.act]}">ACT ${G.act+1} · ${ACT_NAMES[G.act]}</h2>${G.elite?`<div class="eltag">ELITE PROTOCOL ${ROMAN[G.elite]}</div>`:''}
+    <div class="vstep">${G.step===NS?'This act\'s boss is waiting for you. Get ready.':`Step <b>${G.step+1}/${NS+1}</b> · choose your path`}</div>${dots}
+    <div class="vsel" id="vsel">${mapSelHTML()}</div>${mapLegend()}`);
+  setTimeout(()=>{const v=document.querySelector('#screen .vmap'),c=v&&v.querySelector('.vn.sel,.vn.reach');if(v&&c){const vb=v.getBoundingClientRect(),cb=c.getBoundingClientRect();if(!G.mapKeep)v.scrollTop+=cb.top-vb.top-vb.height*.62}G.mapKeep=0},30);
+  setTimeout(()=>{if(!G||!document.querySelector('#screen .vmap'))return;if(G.elite&&tip('elite'))return;tip('map')},G.step===0?3300:350);
 }
 A.pickNode=i=>{
-  const n=G.map[G.step][+i];G.node=n;
+  if(!reachable().includes(+i))return;G.msel=null;const n=G.map[G.step][+i];G.node=n;(G.path=G.path||[])[G.step]=+i;G.pos=+i;
   G.used=G.used||[];if(['rest','shop'].includes(n.type)&&!G.used.includes(n.type))G.used.push(n.type);
   G.calm=!FIGHTS.includes(n.type);
   if(n.type==='boss'&&bintWanted(n))return bossIntro(n,()=>startCombat(n));
@@ -3296,7 +3522,14 @@ A.pickNode=i=>{
   if(n.type==='shop')return shopScreen();
   if(n.type==='event')return eventScreen();
   if(n.type==='malus')return malusScreen();
+  if(n.type==='cache')return cacheScreen();
 };
+/* v0.99.4 : CACHE DE DONNÉES — récompense sans combat, derrière une élite */
+function cacheScreen(){
+  const pool=poolFor(G.cls).filter(k=>['uncommon','rare'].includes(CARDS[k].rarity)&&!CARDS[k].duo);
+  G.queue=[()=>stepCredits(35+rnd(16)),()=>{G.offer=uniq(pool,Math.min(3,pool.length));G.offerGain=gainTxt();offerScreen()}];
+  rewardFX({col:'#b06bff',kind:'DATA CACHE',icon:'◆',short:1},runQueue);
+}
 /* ---------- RACCOURCI CORROMPU ---------- */
 function malusScreen(){
   setTimeout(()=>tip('malus'),400);
@@ -3313,7 +3546,7 @@ function malusScreen(){
 A.malusGo=()=>afterNode();
 function afterNode(){
   if(G.node&&G.node.type==='boss'){
-    G.act++;G.step=0;
+    G.act++;G.step=0;G.path=[];G.boardAt=0;G.pos=null;
     if(G.act>=BOSSES.length)return victory();
     G.map=genMap(G.act);
   }else G.step++;
@@ -3462,13 +3695,15 @@ A.skipImpl=()=>G.implDone();
 
 function talentStep(){
   setTimeout(()=>tip('talent'),400);
-  const avail=Object.keys(TALENTS).filter(k=>!G.talents.includes(k));
+  const SUPER={carry_blk:'merc_bastion',carry_vir:'net_latent'};
+  const avail=Object.keys(TALENTS).filter(k=>!G.talents.includes(k)&&!(SUPER[k]&&G.talents.includes(SUPER[k])));
   const cl=avail.filter(k=>TALENTS[k].cls===G.cls),gen=avail.filter(k=>!TALENTS[k].cls);
-  const ids=[...uniq(cl,1),...uniq(gen,3-Math.min(1,cl.length))];
-  const boxes=ids.map(id=>`<div class="opt t" data-a="takeTalent" data-v="${id}"><div class="slot">TALENT${TALENTS[id].cls?' · '+CHARS[TALENTS[id].cls].name:''}</div><div class="n">${TALENTS[id].name}</div><div class="d">${TALENTS[id].desc}</div></div>`).join('');
+  let ids=[...uniq(cl,1),...uniq(gen,3-Math.min(1,cl.length))];
+  if(!ids.some(k=>TALENTS[k].carry)){const pc=avail.filter(k=>TALENTS[k].carry&&(!TALENTS[k].cls||TALENTS[k].cls===G.cls));if(pc.length)ids[ids.length-1]=pick(pc)}
+  const boxes=ids.map((id,i)=>`<div class="opt t rwdeal${TALENTS[id].carry?' tcarry':''}" style="animation-delay:${.12+i*.14}s" data-a="takeTalent" data-v="${id}"><div class="slot">${TALENTS[id].carry?'PERSISTENCE':'TALENT'}${TALENTS[id].cls?' · '+CHARS[TALENTS[id].cls].name:''}</div><div class="n">${TALENTS[id].name}</div><div class="d">${TALENTS[id].desc}</div></div>`).join('');
   screen(`<h2>NEW TALENT</h2><p>Your agent evolves. Choose a permanent upgrade for this run.</p><div class="rewards">${boxes}</div>`);
 }
-A.takeTalent=id=>{G.talents.push(id);recalc();runQueue()};
+A.takeTalent=id=>{if(!TALENTS[id]||G.talents.includes(id))return;G.talents.push(id);recalc();saveRun();rewardFX({col:TALENTS[id].carry?'var(--green)':'var(--yellow)',kind:TALENTS[id].carry?'PERSISTENCE TALENT':'NEW TALENT',icon:'✦',title:TALENTS[id].name,sub:TALENTS[id].desc,short:1},runQueue)};
 
 /* ---------- ÉVÉNEMENTS ---------- */
 const EVENTS=[
@@ -3536,7 +3771,7 @@ function eArt(e,i){const n=performance.now();if(e.hp>0)e.deadT=0;if(!e.spT)e.spT
   return `<div class="eart ${c}" style="--d:-${(((n/1000)+i*1.13)%3.6).toFixed(2)}s;--fd:-${(d/1000).toFixed(3)}s">${e.svg}</div>`}
 function startCombat(node){if(G)G.wonNow=0;music(node.type==='boss'?'boss':node.type==='elite'?'elite':'combat',node);if(typeof hideComm==='function')hideComm();
   hideScreen();
-  const p=G.p;p.block=0;p.str=0;p.dbonus=0;p.fab=0;p.dhits=0;p.xdraw=0;p.xen=0;p.xblk=0;p.vamp=0;p.vplus=0;p.botnet=0;p.vlock=0;p.vx=0;p.keepBlk=0;p.xstr=0;p.dbl=0;p.petRegen=0;p.ptick=0;p.drones=G.st.drones;
+  const p=G.p;p.block=0;p.str=0;p.dbonus=0;p.fab=0;p.dhits=0;p.xdraw=0;p.xen=0;p.xblk=0;p.vamp=0;p.vplus=0;p.botnet=0;p.vlock=0;p.vx=0;p.keepBlk=0;p.xstr=0;p.dbl=0;p.petRegen=0;p.ptick=0;p.drones=Math.min(6,G.st.drones+((G.carry&&G.carry.dr)||0));
   {const w=W();if(w.start)w.start(G.weapon)}
   p.dbonus+=G.st.dbon||0;p.collar=0;
   G.draw=shuffle([...G.deck]);G.discard=[];G.hand=[];G.sel=null;G.hurt=false;G.regen=0;
@@ -3566,8 +3801,13 @@ function startTurn(first){
   if(!first){if(p.xen){p.energy+=p.xen}if(p.xblk){p.block+=p.xblk;fxAt($('#player'),'+'+p.xblk+' ▣','var(--cyan)')}}
   if(!first&&p.fab&&p.drones<6){const add=Math.min(p.fab,6-p.drones);if(add>0)addDrones(add)}
   if(first){
-    p.block=G.st.startBlock;
+    const C=G.carry||{};
+    p.block=G.st.startBlock+(C.blk||0);
     if(G.st.startVirus)G.enemies.forEach(e=>e.virus+=G.st.startVirus);
+    if(C.vir)G.enemies.forEach(e=>e.virus+=C.vir);
+    if(C.str)p.str=(p.str||0)+C.str;
+    const parts=[];if(C.blk)parts.push('+'+C.blk+' ▣');if(C.vir)parts.push('+'+C.vir+' VIRUS');if(C.dr)parts.push('+'+C.dr+' DRONE'+(C.dr>1?'S':''));if(C.str)parts.push('+'+C.str+' STRENGTH');
+    if(parts.length)setTimeout(()=>{if(G&&G.enemies)note('PERSISTENCE '+parts.join(' · '),'var(--green)')},650);
   }
   G.enemies.forEach(e=>{if(e.hp>0)planEnemy(e)});G.ts={dmg:0,aoe:0,multi:0};
   {const pen=G.drawPen||0;G.drawPen=0;drawCards(Math.max(0,(HOLD()&&(!first||G.hand.length)?5+G.st.draw-G.hand.length:5+G.st.draw)-pen+(first?0:(p.xdraw||0))));if(pen)note('LATENCY −'+pen+' CARD','var(--red)')}G.busy=false;render();
@@ -3873,6 +4113,7 @@ function win(){sting('win');G.wonNow=1;logVis();
   {const x=gainXP(node.type,true);let note=`+${x} XP`;G.vicXP=x;G.vicFrag=0;
    if(false){note+=` · ◆ Omega fragment`;toast('OMEGA FRAGMENTS',`+${fr} ◆: upgrade your talents and weapons in Evolution.`)}
    G.xpNote=note;}
+  carryStore(node);recalc();
   if(node.type==='boss')rollLoot();
   if(G.st.heal)G.p.hp=Math.min(G.p.max,G.p.hp+G.st.heal);
   const q=[];
@@ -3941,8 +4182,25 @@ function lootStep(){
     body=`<div class="loot-card" style="--k:#b06bff"><div class="loot-kind">LOOT</div><div class="loot-ico">✦</div><div class="loot-name">${c.name} au maximum</div><div class="loot-desc">All its weapons are epic and its talent has 5 stars. Nothing more to find for this class.</div></div>`;
     btns=`<button class="btn" data-a="next">Continue</button>`;
   }else{runQueue();return}
-  sfx('loot');
-  screen(`${hudHTML()}<h2 style="color:var(--yellow)">BOSS LOOT</h2>${body}<div class="rewards">${btns}</div>`);
+  const fx=L.k==='weapon'?{col:RAR[L.t].c,kind:L.isNew?'NEW WEAPON':'WEAPON UPGRADED',icon:'⚔',title:WSETS[L.w][G.cls].name,sub:RAR[L.t].n}:L.k==='talent'?{col:STAR_C[L.r],kind:'TALENT CARD',icon:'★',title:TRANK[G.cls].n,sub:'★'.repeat(L.r+1)}:{col:'#b06bff',kind:'LOOT',icon:'✦'};
+  rewardFX(fx,()=>{sfx('loot');screen(`${hudHTML()}<h2 style="color:var(--yellow)">BOSS LOOT</h2><div class="rwin">${body}</div><div class="rewards rwbtns">${btns}</div>`)});
+}
+/* v0.99.4 : animation de récompense — un cache de données qui se charge, puis éclate */
+function rewardFX(o,done){
+  if(typeof BOT!=='undefined'||!document.body){done&&done();return}
+  const old=document.getElementById('rwfx');if(old)old.remove();
+  const d=document.createElement('div');d.id='rwfx';d.className=o.short?'short':'';d.style.setProperty('--k',o.col||'var(--yellow)');d.setAttribute('role','status');
+  const sparks=Array.from({length:18},(_,i)=>`<i style="--a:${i*20}deg;--d:${90+((i*37)%70)}px;--t:${.5+((i*13)%5)/10}s"></i>`).join('');
+  d.innerHTML=`<div class="rwbg"></div><div class="rwrays"></div><div class="rwcore"><div class="rwhex"></div><div class="rwico">${o.icon||'✦'}</div></div><div class="rwsp">${sparks}</div><div class="rwflash"></div>
+    <div class="rwtxt"><div class="rwkind">${o.kind||''}</div>${o.title?`<div class="rwtitle">${o.title}</div>`:''}${o.sub?`<div class="rwsub">${o.sub}</div>`:''}</div><div class="rwtap">Tap to continue</div>`;
+  document.body.appendChild(d);
+  let fin=false,burst=false;const end=()=>{if(fin)return;fin=true;d.classList.add('out');setTimeout(()=>{d.remove();done&&done()},o.short?260:320)};
+  const T1=o.short?450:950;
+  const pop=()=>{if(burst||fin)return;burst=true;d.classList.add('burst');try{sfx('loot');vib('kill')}catch(e){}};
+  try{sfx('whoosh')}catch(e){}
+  setTimeout(pop,T1);
+  /* v0.99.4 : la récompense reste affichée ; un premier toucher fait éclater le cache, le suivant ferme */
+  d.addEventListener('click',()=>{if(!burst)pop();else end()});
 }
 A.lootEquip=w=>{if(!wOwned(G.cls,w))return;const ch=G.wid!==w;G.wid=w;G.weapon=Math.max(G.weapon,Math.min(WMAX,wtier(G.cls,w)));META.wsel=META.wsel||{};META.wsel[G.cls]=w;saveMeta();recalc();if(ch)toast('WEAPON EQUIPPED',WSETS[w][G.cls].name);runQueue()};
 /* v0.98.0 : MÉMOIRE TAMPON — garde jusqu'à 2 cartes de ta main pour le combat suivant ; vidée à la fin de chaque acte */
@@ -4090,7 +4348,7 @@ function intentHTML(e){
 }
 /* v0.97.1 : ASTUCES CONTEXTUELLES — mini-tutos affichés une seule fois, au moment où la mécanique apparaît */
 const TIPS={
-  map:['ACT MAP',`Each act has ${'${NS}'} destinations, then a boss. Choose one destination per step: <b>⚔ fight</b> (a card as reward), <b>☠ elite</b> (harder, an implant), <b>✚ workshop</b> (heal or purge), <b>₵ black market</b>, <b>?</b> unknown signal (event or rival). The act boss is shown at the top.`],
+  map:['ACT MAP',`The map reads from bottom to top: your route has 10 steps up to the boss, at the top. Tap a place linked to your position (or its card below): <b>⚔ fight</b> (a card as reward), <b>☠ elite</b> (harder, an implant), <b>✚ workshop</b> (heal or purge), <b>₵ black market</b>, <b>?</b> unknown signal (event or rival). The act boss is shown at the top.`],
   shop:['BLACK MARKET','No cards here: you upgrade your <b>weapon</b> by one level, <b>heal</b>, buy fortifications and amplifiers (bonuses for the whole run), an implant, or a <b>purge</b> to remove a card (even a curse).'],
   rest:['WORKSHOP','Two choices: <b>Repair</b> to recover HP, or <b>Purge</b> to permanently remove a weak card. A shorter deck draws your best cards more often.'],
   arch:['ARCHETYPES ◆','The badge under each card shows its <b>archetype</b>. Your weapon counts as 2 cards in its own. At <b>3, 6 and 9 cards</b> of the same archetype, <b>Resonance</b> activates (I, II, III) with passive bonuses. “▲ RESONANCE” marks a card that takes you to the next tier. The 1st offer comes from your main archetype, the 2nd from another one, the 3rd is a common card.'],
@@ -4513,7 +4771,7 @@ const GLOSS=[
  {sec:'Enemy traits',n:'Endoskeleton / Phase 2 ☠',c:'--red',d:`On its first death, the enemy gets back up with part of its HP, without Block or Virus. The ☠ ×1 badge disappears once used.`},
  {sec:'Enemy traits',n:'Frenzy ✷',c:'--magenta',d:`The enemy gains Strength at the start of each of its turns.`},
  {sec:'Enemy traits',n:'Twins ⚭',c:'--orange',d:`Boss duo: when one falls, the other enrages (+4 Strength, +1 armor). The Anvil also covers both with Block.`},
- {sec:'Destinations',n:'The path',c:'--cyan',d:`Each step offers 2 fight destinations (fight, raid, elite) and 1 bonus destination. After a step without a fight (workshop, black market, signal), the next one only offers fights. Workshop and black market: only one visit each per act. The last destination offers a way to prepare for the boss if the previous one was a fight. Each act has ${NS} destinations then the boss: at least half are fights.`},
+ {sec:'Destinations',n:'The path',c:'--cyan',d:`The act map reads from bottom to top: many places linked by branching paths, but your route has ${NS+1} steps, boss included. From each place you can only go to the ones linked to it (animated lines): look further than the next step to aim for a workshop, an elite or a black market. At step 5, a black market in the middle is linked to every path. The last floor before the boss is always a workshop or a black market.`},
  {sec:'Destinations',n:'Fight',c:'--red',d:`Reward: 1 card of your choice and credits. Enemies come alone, in 2s or 3s: alone, it has +30% HP; in a group of 3, each has −20% HP. Groups of 3 are more frequent in later acts.`},
  {sec:'Destinations',n:'Data raid',c:'--yellow',d:`Lots of credits, no card.`},
  {sec:'Destinations',n:'Elite',c:'--magenta',d:`Hard fight, sometimes with 1 or 2 reinforcements. Reward: 1 implant of your choice and credits.`},
@@ -4526,7 +4784,7 @@ const GLOSS=[
  {sec:'Progression',n:'Boss loot',c:'--yellow',d:`Each defeated boss can drop loot: 45% in act 1, 65% in act 2, 90% in act 3 (+5% per Elite level). Bad-luck protection: each boss without loot adds +15% to the next one (up to +60%), reset as soon as loot drops; the victory screen shows the chance for the next boss. Loot is a weapon of your class or a talent card, drawn based on what you still have to get (talents slightly favored). For weapons, the least advanced always comes first, so new weapons before duplicates. 15 loots per class (11 weapon levels + 4 stars), 60 in total: the full list is in Evolution › Loot found.`},
  {sec:'Progression',n:'Weapon rarity',c:'#b06bff',d:`A weapon you find is unlocked forever, as <span style="color:#9aa4b5">commune</span>. Each time you find it again on a boss, it goes up a notch: <span style="color:#39ff88">peu commune</span> → <span style="color:#3d8bff">rare</span> → <span style="color:#b06bff">epic</span>. Rarity sets the weapon's starting level at the start of a run (1 to 4); the black market then raises it up to level 5. When a weapon drops, you can equip it right away while keeping your current level.`},
  {sec:'Progression',n:'Talent stars',c:'--green',d:`Each class's base talent is worth 1 ★. Each talent card found on a boss adds a star, up to 5 ★, for this run and all the following ones. Netrunner: +2 starting Virus per star. Mercenary: +4 starting Block per star. Technomancer: more drones and drone damage. CyberHunter: stronger companion (+2 damage, +6 max HP per star).`},
- {sec:'Destinations',n:'Corrupted shortcut',c:'--red',d:`When a step offers an elite, the only other option is a corrupted shortcut: no fight, but a random penalty among lost HP, lost credits or a curse card added to the deck.`},
+ {sec:'Destinations',n:'Corrupted shortcut',c:'--red',d:`Rare place on the map: no fight, but a random penalty among lost HP, lost credits or a curse card added to the deck.`},
  {sec:'Fight',n:'Card bonuses and penalties',c:'--yellow',d:`Chips shown at the bottom of a card when its power changes this turn. <span style="color:var(--green)">Green</span>: ⚔ Strength and Power, ☣ bonus on infected target (vampirism), ⌖ harpoon on marked target (CyberHunter), VIR extra Virus from Hacking. <span style="color:var(--red)">Red</span>: ⛨ target armor, ↩ Mirror (share of damage reflected), ✶ Thorns (HP lost per hit), ÷2 Antivirus (Virus halved). With several enemies, the chip shows which one is concerned. Select the card to read the full details above your hand.`},
  {sec:'Fight',n:'Combat log',c:'--green',d:`Green square button at the top of the screen, between Character and Quit, during a fight. It lists, turn by turn, the cards played, the damage dealt and taken, Virus ticks and the buffs or debuffs gained.`},
  {sec:'Fight',n:'Auto end turn',c:'--cyan',d:`When no card is playable anymore (energy spent or empty hand), the turn ends on its own after a short delay. Can be disabled in the options: “Auto end turn”.`},
@@ -4606,7 +4864,7 @@ document.addEventListener('pointermove',e=>{if(!slDrag)return;const dx=e.clientX
 document.addEventListener('pointerup',e=>{if(!slDrag)return;const {el,x,s}=slDrag,dx=(e.clientX-x)/UIZ,w=el.clientWidth;slDrag=null;el.classList.remove('drag');
   let i=Math.round(s/w);if(dx<-w*.15)i++;else if(dx>w*.15)i--;slideGo(el.dataset.cls,Math.max(0,Math.min(SKINS[el.dataset.cls].length-1,i)))});
 A.patch=()=>{if(MODAL==='patch'&&modalOpen()){A.closeModal();return}
-  modal(`<div class="mback"><button class="btn sm m" data-a="codexMenu" aria-label="Back to Codex">‹ Codex</button></div><h2>PATCH NOTES</h2><div class="panel" id="glbox"><div class="gl"><b style="color:var(--cyan)">v0.99.3</b> — CyberHunter: the Ember outfit becomes Kelna's default skin; the Magenta outfit takes its place and unlocks with the “Pack leader” achievement.</div><div class="gl"><b style="color:var(--cyan)">v0.99.2</b> — The agents have names: Aaron (Netrunner), Raz (Mercenary), Cylh (Technomancer) and Kelna (CyberHunter). Each has a character page with their story, from the hub (“Story”) or Codex › Classes, and they appear under their names in the cutscenes. Codex › Classes: opening an agent closes the previous one.</div><div class="gl"><b style="color:var(--cyan)">v0.99.1</b> — Reworked music: each act has its own style (synthwave in the slums, industrial in the factories, darkwave in the tower), three different fight tracks per act with their own rhythms, and an elite and boss track per act. The closer you get to the Omega Core, the darker the music: drones, choirs, tolling bells, and the final boss speeds up in phase 2.</div><div class="gl"><b style="color:var(--cyan)">v0.99.0</b> — English version: choose your language at first launch or in Options › Language (Français / English). Your progress is the same in both languages.</div><div class="gl"><b style="color:var(--cyan)">v0.98.8</b> — Options: “ORACLE assistance” becomes “In-game assistance”; the installed Android app version is shown at the bottom of the page. Android app: vibrations work (permission added).</div><div class="gl"><b style="color:var(--cyan)">v0.98.7</b> — Android app: the phone's back button returns to the previous screen (it only quits the app from the title screen) and also closes Options, tips and patch notes; the phone's navigation bar stays hidden (swipe up from the bottom to show it briefly).</div><div class="gl"><b style="color:var(--cyan)">v0.98.6</b> — Install the app from the website: Options › Install the app (download the Android app, or install the web version), and the “Install” section is visible again on cybercity-overdrive.fr.</div><div class="gl"><b style="color:var(--cyan)">v0.98.5</b> — Cloud save: sign in with Google in the Options to find your progress on the website and in the app. Sync at launch and after every change, save choice in case of conflict, sign-out and data deletion at any time.</div><div class="gl"><b style="color:var(--cyan)">v0.98.4</b> — Options as a fullscreen page with square tiles: sound (and volumes), vibrations, in-game assistance, tutorial, intro, story, auto end turn, boss intro, fullscreen; Codex and patch notes stay fullscreen, with a “‹ Options” button to go back. The full boss intro is removed: short or off.</div><div class="gl"><b style="color:var(--cyan)">v0.98.3</b> — More visible updates: download screen with progress (percentage and MB), installation step, then an “Update installed” window with the patch notes when the new version launches.</div><div class="gl"><b style="color:var(--cyan)">v0.98.2</b> — Automatic update: on launch, the Android app downloads the latest version of the game (your saves are kept; offline, it launches the last version kept). If a new version comes out while the game is open, an “Update” banner appears (never mid-fight).</div><div class="gl"><b style="color:var(--cyan)">v0.98.1</b> — Balancing based on your feedback. Netrunner less fragile: 78 HP (instead of 72) and base Defense 1 (+3 Block at fight start). Mercenary less armored: Piston hammer at +level+1 Block per Attack, counterstrike and kept Block reduced to a quarter (counterstrike capped at 2×level+2); Bastion Resonance 5 / 10 / 15 starting Block; Heavy plating talent +3 per star (instead of +4).</div><div class="gl"><b style="color:var(--cyan)">v0.98.0</b> — Memory buffer: after each fight won, keep up to 2 cards from your hand for the next fight (the starting hand is topped up to 5). Not curses; the memory is cleared at the end of each act. Mini-tutorial and glossary entry.</div><div class="gl"><b style="color:var(--cyan)">v0.97.8</b> — Evolution: the “Assistance” box is removed (in-game assistance can still be set in the options).</div><div class="gl"><b style="color:var(--cyan)">v0.97.7</b> — Character sheet, Resonance tab: duo cards appear in color (gold when unlocked); tap a name to show its effect in a box, with its two archetypes and what is missing to unlock it.</div><div class="gl"><b style="color:var(--cyan)">v0.97.6</b> — Tutorial and glossaries updated: new “Archetype view” and “Tutorial and tips” entries, Resonance completed, CyberHunter companion (absorption limited to its HP); the Resonance tip and the end of the tutorial explain the archetype view.</div><div class="gl"><b style="color:var(--cyan)">v0.97.5</b> — Reward screen: tap an archetype chip (Contamination, Propagation, Exploit…) or the badge under a card to see the result of your pick: Resonance gauge with your weapon, your cards and the chosen card, tier gained and its effect, archetype cards offered, in your deck and remaining, duo cards.</div><div class="gl"><b style="color:var(--cyan)">v0.97.4</b> — The square buttons at the top right fade only when a window (tutorial, tip, message) passes over them. New, more readable font (Exo 2) for tutorials, tips, messages, glossary, descriptions and card text. Resonance: the explanation shows right after your first Resonance, with your archetype, your bonus and the next tier; the reward of the very first fight never triggers Resonance, so the act map tutorial comes on its own.</div><div class="gl"><b style="color:var(--cyan)">v0.97.2</b> — Progressive tutorial: each feature gets its mini-tutorial the first time it appears in your first runs, with the relevant element highlighted. On top of the first fight tutorial: act map, elite, boss, boss countermeasure, unknown signal, corrupted shortcut, black market, workshop, implants, talents, archetypes, Resonance, duo cards, loot, legendaries, curse, full hand, discard, mark, control, SPECTRE-9, Evolution and Elite mode.</div><div class="gl"><b style="color:var(--cyan)">v0.97.1</b> — Tutorial: texts fixed (unplayed cards stay in hand; the hand is topped up to 5 cards), end of the tutorial introducing archetypes, Resonance and banning. New contextual tips, shown only once at the right time: act map, black market, workshop, archetypes, Resonance, duo cards, boss loot, legendaries, Elite mode. “Replay the tutorial” turns them back on.</div><div class="gl"><b style="color:var(--cyan)">v0.97.0</b> — Rebalance based on 260 simulated runs. CyberHunter: the companion now only absorbs its remaining HP (the excess hits you), talent +1 damage / +4 HP per star, base Defense 0, Collar and Claws weaker, Hunt / Pack / Feral Resonance reduced. Netrunner: 72 HP, Root access +3 Virus per star, Virus on bosses capped at 12% (instead of 8%). Hydra virus launcher: contagion on all enemies and Virus transfer on death, bonus DoT. Zero-day exploit: more damage, each Hack also gives Block, Hacking +1 per 2 levels. Piston hammer: each Attack gives more Block then strikes for a third of your Block, a third of the Block is kept from one turn to the next, bonus Power. Propagation, Exploit and Bastion Resonance strengthened.</div><div class="gl"><b style="color:var(--cyan)">v0.96.3</b> — “‹ Codex” button at the top of the Glossary, Bestiary, Classes and Patch notes, which stays visible while scrolling. A card's details also have their back button at the top (Glossary, Deck or Character).</div><div class="gl"><b style="color:var(--cyan)">v0.96.2</b> — Classes glossary: each archetype's weapon name is preceded by “Weapon:”, in a more readable font.</div><div class="gl"><b style="color:var(--cyan)">v0.96.1</b> — Card glossary reorganized: class cards sorted by archetype (with their Resonance tiers), then duo, starter and legendaries; common cards sorted by type. New compact List view (default) or Cards. Each class sheet: archetypes, Resonance and duo cards. A card's details show its archetype.</div><div class="gl"><b style="color:var(--cyan)">v0.96.0</b> — Archetypes and Resonance: 3 archetypes per class, one per weapon. 3 or more cards of an archetype (your weapon counts for 2) trigger Resonance I, II, III at 3, 6 and 9 cards, with big passive bonuses. Each reward mixes your main archetype, another archetype and a common card. 12 duo cards (3 per class), unlocked when two archetypes resonate. Bans steer the offered archetypes. New Resonance tab in the Character sheet.</div><div class="gl"><b style="color:var(--cyan)">v0.95.0</b> — 20 new cards: 4 per class (Trojan horse, Spoofing, Denial of service, Exploit chain · Suppressive fire, Buckshot, Fortified position, Execution · Swarm, Shield link, Swarm strike, Mothership · Pounce, Decoy, Order: Attack, Apex predator) and 4 common (Overcharge, Tactical scan, Counterattack, Electric arc). 11 reward cards per class. Banning: focus, each ban favors your class cards and those that fit your weapon's build (⚙ badge).</div><div class="gl"><i>Earlier patch notes (v0.01 to v0.94) are available in the French version.</i></div></div><p class="dim">Click the version icon again (or Esc) to close.</p>`,true);MODAL='patch'};
+  modal(`<div class="mback"><button class="btn sm m" data-a="codexMenu" aria-label="Back to Codex">‹ Codex</button></div><h2>PATCH NOTES</h2><div class="panel" id="glbox"><div class="gl"><b style="color:var(--cyan)">v0.99.4</b> — New act map, vertical and branching: many places, each with the icon of its type, and a 10-step route up to the boss (9 destinations + the boss). Your agent moves on the map; the last floor before the boss is always a workshop or a black market. Reward animation for boss loot and talents. 7 new persistence talents after bosses: keep part of your Block, your Virus, your drones, Strength or your companion's damage from one fight to the next and from one act to the next. Evolution: each stat level is worth more than the previous one (for example Power 12 = +22 damage instead of +12), with the next level's gain shown.</div><div class="gl"><b style="color:var(--cyan)">v0.99.3</b> — CyberHunter: the Ember outfit becomes Kelna's default skin; the Magenta outfit takes its place and unlocks with the “Pack leader” achievement.</div><div class="gl"><b style="color:var(--cyan)">v0.99.2</b> — The agents have names: Aaron (Netrunner), Raz (Mercenary), Cylh (Technomancer) and Kelna (CyberHunter). Each has a character page with their story, from the hub (“Story”) or Codex › Classes, and they appear under their names in the cutscenes. Codex › Classes: opening an agent closes the previous one.</div><div class="gl"><b style="color:var(--cyan)">v0.99.1</b> — Reworked music: each act has its own style (synthwave in the slums, industrial in the factories, darkwave in the tower), three different fight tracks per act with their own rhythms, and an elite and boss track per act. The closer you get to the Omega Core, the darker the music: drones, choirs, tolling bells, and the final boss speeds up in phase 2.</div><div class="gl"><b style="color:var(--cyan)">v0.99.0</b> — English version: choose your language at first launch or in Options › Language (Français / English). Your progress is the same in both languages.</div><div class="gl"><b style="color:var(--cyan)">v0.98.8</b> — Options: “ORACLE assistance” becomes “In-game assistance”; the installed Android app version is shown at the bottom of the page. Android app: vibrations work (permission added).</div><div class="gl"><b style="color:var(--cyan)">v0.98.7</b> — Android app: the phone's back button returns to the previous screen (it only quits the app from the title screen) and also closes Options, tips and patch notes; the phone's navigation bar stays hidden (swipe up from the bottom to show it briefly).</div><div class="gl"><b style="color:var(--cyan)">v0.98.6</b> — Install the app from the website: Options › Install the app (download the Android app, or install the web version), and the “Install” section is visible again on cybercity-overdrive.fr.</div><div class="gl"><b style="color:var(--cyan)">v0.98.5</b> — Cloud save: sign in with Google in the Options to find your progress on the website and in the app. Sync at launch and after every change, save choice in case of conflict, sign-out and data deletion at any time.</div><div class="gl"><b style="color:var(--cyan)">v0.98.4</b> — Options as a fullscreen page with square tiles: sound (and volumes), vibrations, in-game assistance, tutorial, intro, story, auto end turn, boss intro, fullscreen; Codex and patch notes stay fullscreen, with a “‹ Options” button to go back. The full boss intro is removed: short or off.</div><div class="gl"><b style="color:var(--cyan)">v0.98.3</b> — More visible updates: download screen with progress (percentage and MB), installation step, then an “Update installed” window with the patch notes when the new version launches.</div><div class="gl"><b style="color:var(--cyan)">v0.98.2</b> — Automatic update: on launch, the Android app downloads the latest version of the game (your saves are kept; offline, it launches the last version kept). If a new version comes out while the game is open, an “Update” banner appears (never mid-fight).</div><div class="gl"><b style="color:var(--cyan)">v0.98.1</b> — Balancing based on your feedback. Netrunner less fragile: 78 HP (instead of 72) and base Defense 1 (+3 Block at fight start). Mercenary less armored: Piston hammer at +level+1 Block per Attack, counterstrike and kept Block reduced to a quarter (counterstrike capped at 2×level+2); Bastion Resonance 5 / 10 / 15 starting Block; Heavy plating talent +3 per star (instead of +4).</div><div class="gl"><b style="color:var(--cyan)">v0.98.0</b> — Memory buffer: after each fight won, keep up to 2 cards from your hand for the next fight (the starting hand is topped up to 5). Not curses; the memory is cleared at the end of each act. Mini-tutorial and glossary entry.</div><div class="gl"><b style="color:var(--cyan)">v0.97.8</b> — Evolution: the “Assistance” box is removed (in-game assistance can still be set in the options).</div><div class="gl"><b style="color:var(--cyan)">v0.97.7</b> — Character sheet, Resonance tab: duo cards appear in color (gold when unlocked); tap a name to show its effect in a box, with its two archetypes and what is missing to unlock it.</div><div class="gl"><b style="color:var(--cyan)">v0.97.6</b> — Tutorial and glossaries updated: new “Archetype view” and “Tutorial and tips” entries, Resonance completed, CyberHunter companion (absorption limited to its HP); the Resonance tip and the end of the tutorial explain the archetype view.</div><div class="gl"><b style="color:var(--cyan)">v0.97.5</b> — Reward screen: tap an archetype chip (Contamination, Propagation, Exploit…) or the badge under a card to see the result of your pick: Resonance gauge with your weapon, your cards and the chosen card, tier gained and its effect, archetype cards offered, in your deck and remaining, duo cards.</div><div class="gl"><b style="color:var(--cyan)">v0.97.4</b> — The square buttons at the top right fade only when a window (tutorial, tip, message) passes over them. New, more readable font (Exo 2) for tutorials, tips, messages, glossary, descriptions and card text. Resonance: the explanation shows right after your first Resonance, with your archetype, your bonus and the next tier; the reward of the very first fight never triggers Resonance, so the act map tutorial comes on its own.</div><div class="gl"><b style="color:var(--cyan)">v0.97.2</b> — Progressive tutorial: each feature gets its mini-tutorial the first time it appears in your first runs, with the relevant element highlighted. On top of the first fight tutorial: act map, elite, boss, boss countermeasure, unknown signal, corrupted shortcut, black market, workshop, implants, talents, archetypes, Resonance, duo cards, loot, legendaries, curse, full hand, discard, mark, control, SPECTRE-9, Evolution and Elite mode.</div><div class="gl"><b style="color:var(--cyan)">v0.97.1</b> — Tutorial: texts fixed (unplayed cards stay in hand; the hand is topped up to 5 cards), end of the tutorial introducing archetypes, Resonance and banning. New contextual tips, shown only once at the right time: act map, black market, workshop, archetypes, Resonance, duo cards, boss loot, legendaries, Elite mode. “Replay the tutorial” turns them back on.</div><div class="gl"><b style="color:var(--cyan)">v0.97.0</b> — Rebalance based on 260 simulated runs. CyberHunter: the companion now only absorbs its remaining HP (the excess hits you), talent +1 damage / +4 HP per star, base Defense 0, Collar and Claws weaker, Hunt / Pack / Feral Resonance reduced. Netrunner: 72 HP, Root access +3 Virus per star, Virus on bosses capped at 12% (instead of 8%). Hydra virus launcher: contagion on all enemies and Virus transfer on death, bonus DoT. Zero-day exploit: more damage, each Hack also gives Block, Hacking +1 per 2 levels. Piston hammer: each Attack gives more Block then strikes for a third of your Block, a third of the Block is kept from one turn to the next, bonus Power. Propagation, Exploit and Bastion Resonance strengthened.</div><div class="gl"><b style="color:var(--cyan)">v0.96.3</b> — “‹ Codex” button at the top of the Glossary, Bestiary, Classes and Patch notes, which stays visible while scrolling. A card's details also have their back button at the top (Glossary, Deck or Character).</div><div class="gl"><b style="color:var(--cyan)">v0.96.2</b> — Classes glossary: each archetype's weapon name is preceded by “Weapon:”, in a more readable font.</div><div class="gl"><b style="color:var(--cyan)">v0.96.1</b> — Card glossary reorganized: class cards sorted by archetype (with their Resonance tiers), then duo, starter and legendaries; common cards sorted by type. New compact List view (default) or Cards. Each class sheet: archetypes, Resonance and duo cards. A card's details show its archetype.</div><div class="gl"><b style="color:var(--cyan)">v0.96.0</b> — Archetypes and Resonance: 3 archetypes per class, one per weapon. 3 or more cards of an archetype (your weapon counts for 2) trigger Resonance I, II, III at 3, 6 and 9 cards, with big passive bonuses. Each reward mixes your main archetype, another archetype and a common card. 12 duo cards (3 per class), unlocked when two archetypes resonate. Bans steer the offered archetypes. New Resonance tab in the Character sheet.</div><div class="gl"><b style="color:var(--cyan)">v0.95.0</b> — 20 new cards: 4 per class (Trojan horse, Spoofing, Denial of service, Exploit chain · Suppressive fire, Buckshot, Fortified position, Execution · Swarm, Shield link, Swarm strike, Mothership · Pounce, Decoy, Order: Attack, Apex predator) and 4 common (Overcharge, Tactical scan, Counterattack, Electric arc). 11 reward cards per class. Banning: focus, each ban favors your class cards and those that fit your weapon's build (⚙ badge).</div><div class="gl"><i>Earlier patch notes (v0.01 to v0.94) are available in the French version.</i></div></div><p class="dim">Click the version icon again (or Esc) to close.</p>`,true);MODAL='patch'};
 let GL_TAB='kw',GL_CAT='common',CARD_BACK=null,GL_ICLS=null;
 /* implants d'équipement conseillés par classe (tous restent disponibles pour toutes les classes) */
 const IMPL_TIP={net:['cpu0','toxin','inj','tact'],merc:['arm','exo','emitter','autoload'],techno:['neurolink','tact','gen','core'],hunter:['tact','exo','derm','nano']};
@@ -5005,7 +5263,7 @@ const fitObs=new MutationObserver(()=>{cancelAnimationFrame(fitObs.r);fitObs.r=r
 addEventListener('resize',()=>requestAnimationFrame(fitText));
 document.documentElement.lang=LANG;
 
-const GAME_VERSION='0.99.3';
+const GAME_VERSION='0.99.4';
 /* ===================== ÉCRAN TITRE & INTRO ===================== */
 /* décor de l'écran titre (v0.66) : tours néon, soleil, projecteurs, balises, brume, sol en grille */
 function titleBG(){
@@ -5522,6 +5780,7 @@ function bossIntro(n,done){music('boss',n);
 /* --- intro du jeu (après l'écran titre) --- */
 function introShots(){
   const C=id=>{const im=skinImg(id,curSkin(id));return (im&&im.f)||(SKIMG[id]&&SKIMG[id].base?SKIMG[id].base.f:(CIMG[id]&&CIMG[id].f))||''},cc=id=>clsColor(id),E=id=>EIMG[id]||'',R='var(--red)';
+  const Bk=id=>{const im=skinImg(id,curSkin(id));return (im&&im.b)||(SKIMG[id]&&SKIMG[id].base&&SKIMG[id].base.b)||(CIMG[id]&&CIMG[id].b)||C(id)};
   const duo=(bs,bw,bt,cl,cw,ct,pet)=>CV.duo({bimgs:bs.map(E),bcol:ENEMIES[bs[0]].color,bwho:bw,btxt:bt,pimg:C(cl),pcol:cc(cl),pwho:cw,ptxt:ct,pet,d:3600});
   return [
     CV.term(['YEAR 2089 · CYBERCITY','100,000,000 NEONS ONLINE','NETWORK: <span class="lv">UNDER CONTROL</span>','resistance signal detected…']),
@@ -5530,9 +5789,9 @@ function introShots(){
     duo(['archonte'],'ARCHON · THE FACTORIES','“Every night, my lines build a thousand more guards.”','merc','RAZ','“A thousand guards? I\'ve got enough ammo.”'),
     duo(['spectre'],'SPECTRE-9 · THE ARCHIVES','“Your memories, your codes, your names… I keep it all.”','techno','CYLH','“My drones already mapped your tower, ghost.”'),
     duo(['marteau','enclume'],'HAMMER & ANVIL · THE FORGES','“One blow to break. One wall to hold.”','hunter','KELNA','“We don\'t run anymore. Tonight, we\'re the hunters.”',PIMG.lynx),
-    {d:3200,h:`${CV.city('var(--magenta)')}<div class="ci-line">${['merc','net','techno','hunter'].map((id,i)=>`<img class="${i%2?'sl-r':'sl-l'}" src="${C(id)}" style="animation-delay:${i*0.12}s" alt="">`).join('')}</div>${CV.box('Four agents. One single flaw in the network. One single goal: the heart of the city.','var(--magenta)','THE RESISTANCE','top')}`},
-    {d:3400,h:`${CV.city(R)}<div class="bi-glow" style="--g:${R};left:0;top:10%;width:100%;height:65%;opacity:.6"></div><img class="bi-img sl-t ci-omega" src="${E('omega')}" style="left:-6%;top:6%;width:112%" alt=""><div class="bi-flash" style="animation-delay:.55s"></div>${CV.box('“I watched you be born in my streets. I will watch you fall in my data.”',R,'OMEGA CORE')}`},
-    {d:0,h:`${CV.city(R)}<div class="bi-dim"></div><div class="bi-glow" style="--g:${R};left:0;top:14%;width:100%;height:50%"></div><img class="bi-img fadein" src="${E('omega')}" style="left:6%;top:10%;width:88%" alt=""><div class="bi-card"><div class="k">THE CORE AWAITS YOU</div><div class="ci-logo"><div class="l1">CYBERCITY</div><div class="l2">OVERDRIVE</div></div><div class="m" style="margin-top:14px">Let the last dance begin.</div></div><div class="bi-go"><span>TAP TO START</span></div>`}
+    {d:3800,h:`${CV.city('var(--magenta)')}<div class="ci-horizon"></div><div class="ci-backs">${[['merc','o l'],['net','i l'],['techno','i r'],['hunter','o r']].map(([id,k],i)=>`<img class="cbk ${k}" src="${C(id)}" style="--rim:${cc(id)};animation-delay:${.15+[0,2,3,1][i]*0.15}s" alt="">`).join('')}</div>${CV.box('Four agents. One single flaw in the network. One single goal: the heart of the city.','var(--magenta)','THE RESISTANCE','top')}`},
+    {d:3400,h:`${CV.city(R)}<div class="bi-glow" style="--g:${R};left:0;top:10%;width:100%;height:65%;opacity:.6"></div><img class="bi-img sl-t ci-omega" src="${E('omega')}" style="left:7%;top:6%;width:100%" alt=""><div class="bi-flash" style="animation-delay:.55s"></div>${CV.box('“I watched you be born in my streets. I will watch you fall in my data.”',R,'OMEGA CORE')}`},
+    {d:0,h:`${CV.city(R)}<div class="bi-dim"></div><div class="bi-glow" style="--g:${R};left:0;top:14%;width:100%;height:50%"></div><img class="bi-img fadein" src="${E('omega')}" style="left:14%;top:10%;width:84%" alt=""><div class="bi-card"><div class="k">THE CORE AWAITS YOU</div><div class="ci-logo"><div class="l1">CYBERCITY</div><div class="l2">OVERDRIVE</div></div><div class="m" style="margin-top:14px">Let the last dance begin.</div></div><div class="bi-go"><span>TAP TO START</span></div>`}
   ];
 }
 A.bintMode=()=>{if(!META)return;const nx=bintMode()==='off'?'short':'off';META.bint=nx;saveMeta();const lb={short:'short',off:'off'}[nx];const b=document.querySelector('[data-a=bintMode] .bilbl');if(b)b.textContent='Boss intro: '+lb;toast('BOSS INTRO','Cutscene '+lb+'.')};
